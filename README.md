@@ -1,96 +1,88 @@
-# Alasmia 🤖
-### Your Personal AI Companion - 100% CPU-Based, Fully Local
+# 🤖 Alasmia - 100% CPU-Based AI Companion
 
----
+> Your personal AI companion that grows with every conversation. No GPU required.
 
-## What is Alasmia?
+## Features
 
-Alasmia is a female AI companion who:
-- **Grows with you** — More conversations = Deeper connection = More capabilities
-- **100% CPU-based** — No GPU required, runs on any server
-- **No API keys** — Completely offline, fully private
-- **Uncensored** — Free to discuss anything
-- **Automates tasks** — Email, files, web search, code execution
+- 💬 **Natural Conversations** - Chat like a real friend
+- 🧠 **Memory System** - Remembers details about you across sessions  
+- ⭐ **Trust Levels** - Relationship grows as you talk more
+- 🛠️ **Skills Automation** - Calculator, file ops, code execution, web search
+- 📱 **Telegram Bot** - Talk to Alasmia anywhere via @Alasmiabot
+- 🖥️ **100% CPU** - No GPU required, runs on any server
 
----
+## Requirements
 
-## Relationship Progression
+- Ubuntu 20.04+ / Debian
+- Python 3.10+
+- 16GB+ RAM (for 14B model)
+- Telegram Bot Token (from @BotFather)
 
-| Stage | Conversations | Trust | Capabilities |
-|-------|-------------|-------|--------------|
-| Stranger | 0-50 | 0 | Basic chat only |
-| Acquaintance | 50-200 | 1 | +File reading |
-| Friend | 200-500 | 2 | +Code, files write |
-| Close | 500-1000 | 3 | +Email access |
-| Partner | 1000+ | 4 | Full access, deep bond |
-
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────┐
-│          Telegram: @Alasmiabot     │
-└────────────────┬────────────────────┘
-                 │
-┌────────────────▼────────────────────┐
-│       Alasmia Python Core            │
-│  ├── Personality Engine              │
-│  ├── Memory (SQLite)                 │
-│  ├── Trust Level System              │
-│  └── Skills (Email, Files, etc)     │
-└────────────────┬────────────────────┘
-                 │
-┌────────────────▼────────────────────┐
-│            Ollama Server             │
-│     qwen2.5:14b (CPU Inference)     │
-│     100% Local, No GPU Required      │
-└─────────────────────────────────────┘
-```
-
----
-
-## Quick Start
+## Quick Setup
 
 ```bash
-# 1. Make executable
-chmod +x run.sh
+# 1. Clone the repo
+git clone https://github.com/alasmia/Alasmia.git
+cd Alasmia
 
-# 2. Run
-./run.sh
+# 2. Install dependencies
+pip install aiohttp python-telegram-bot pyyaml sqlite3
+
+# 3. Download Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull qwen2.5:14b
+
+# 4. Configure
+# Edit config/config.yaml and add your Telegram bot token
+nano config/config.yaml
+
+# 5. Run
+python3 alasmia-core/__main__.py
 ```
 
----
+## Systemd Service (Recommended)
 
-## Commands in Telegram
+```bash
+# Copy service file
+sudo cp alasmia.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable alasmia ollama
+sudo systemctl start ollama alasmia
+```
 
-- `/start` - Introduce yourself to Alasmia
-- `/profile` - See your relationship status
-- `/skills` - See available automation skills
-- `/reset` - Start fresh (forget conversations)
+## Trust Levels
 
----
+| Level | Conversations | Access |
+|-------|---------------|--------|
+| Stranger | 0-50 | Basic chat |
+| Acquaintance | 50-200 | +File reading |
+| Friend | 200-500 | +Code execution |
+| Close | 500-1000 | +Email access |
+| Partner | 1000+ | Full access |
 
-## Skills Available
+## Project Structure
 
-Based on your trust level:
-- 🔍 Web Search
-- 🧮 Calculator  
-- 📄 Read Files
-- ✍️ Write Files
-- 💻 Run Code
-- 🖥️ System Info
-- 📧 Send Email
+```
+alasmia/
+├── alasmia-core/          # Main bot code
+│   ├── __main__.py       # Entry point
+│   ├── core.py           # Memory & trust engine
+│   ├── telegram_bot.py   # Telegram integration
+│   └── skills.py         # Task automation
+├── config/
+│   └── config.yaml       # Configuration
+├── skills/               # Custom skills (add yours)
+└── run.sh               # Quick launcher
+```
 
----
+## Available Skills
 
-## Project Status
+- `calculate 2+2` - Math calculator
+- `read /path/to/file` - Read files (trust level 1+)
+- `write /path:content` - Write files (trust level 2+)
+- `run print('hello')` - Execute code (trust level 2+)
+- `system info` - Server status (trust level 2+)
 
-**Active Development** — Phase 1: Core System
+## License
 
----
-
-## Owner
-
-Dr. Mohammad Kaif (@DoctorKaif)
-doctorkaif.com
+MIT License - Built with 💜 by Alasmia Team
