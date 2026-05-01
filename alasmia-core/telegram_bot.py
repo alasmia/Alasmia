@@ -200,10 +200,11 @@ What shall we talk about today?"""
                 "prompt": prompt,
                 "stream": False,
                 "options": {
-                    "temperature": 0.85,
-                    "num_predict": 600,
+                    "temperature": 0.8,
+                    "num_predict": 150,
                     "top_p": 0.9,
                     "repeat_penalty": 1.1,
+                    "num_ctx": 2048,
                 }
             }
 
