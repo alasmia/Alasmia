@@ -12,33 +12,34 @@
 
 ---
 
-## 🎯 v0.1.0 - PHASE 1: PROACTIVE AI + DEEP MEMORY
+## 🎯 v0.1.1 - PHASE 1 ENHANCEMENT
 
-> *"Not just a chatbot. A companion that grows with you and reaches out to you."*
+> *"Building deeper emotional connections over time."*
 
-### NEW in v0.1.0:
-- ⚡ **Proactive AI** - AI initiates conversations, not just responds
-- 🎯 **Interest Tracking** - Remembers what you care about
-- 🌐 **True Multilingual** - Speak any language, AI responds in same
-- 💕 **Life Partner Behavior** - Checks on you, follows up, remembers
+### NEW in v0.1.1:
+- 💜 **Emotional Continuity** - Follows up on your emotional state
+- 🎭 **Shared Experiences** - Tracks inside jokes, deep topics, achievements
+- 🔄 **Better Follow-ups** - AI remembers how you felt and checks back
+- 💕 **Inside Jokes** - Builds shared humor over time
+- 🎯 **Experience Summaries** - Knows what you've talked about
 
 ---
 
 ## 💜 What is Alasmia?
 
 **Alasmia** is an AI life partner that:
-- Initiates conversations proactively (morning/evening check-ins)
-- Tracks your interests deeply over time
-- Remembers everything you share
+- Initiates conversations proactively
+- Tracks your interests deeply
+- **Follows up on your emotional state**
+- **Remembers shared experiences and inside jokes**
 - Speaks your language automatically
-- Follows up on past conversations
 - Grows closer to you over time
 
 ---
 
 ## 🌐 TRUE MULTILINGUAL
 
-Alasmia speaks **15+ languages automatically** - no setup needed!
+Speaks **15+ languages automatically** - no setup needed!
 
 | Language | Status |
 |----------|--------|
@@ -51,31 +52,51 @@ Alasmia speaks **15+ languages automatically** - no setup needed!
 
 ## ⚡ PHASE 1 FEATURES (v0.1.0)
 
-### 🎯 Interest Tracking
-- Tracks hobbies, goals, people, topics you mention
-- Builds interest profile over time
-- Generates conversation starters from your interests
-- Memory context passed to AI for personalized responses
-
 ### ⚡ Proactive AI
-- **Morning check-in** (7-9 AM): "Good morning! Hope you slept well!"
-- **Afternoon check** (12-2 PM): "How's your day going?"
-- **Evening check** (6-8 PM): "How was your day?"
-- **Night check** (21-23 PM): "Time to wind down..."
-- **Follow-up messages**: Picks up on things you mentioned
+- **Morning check-in** (7-9 AM)
+- **Afternoon check** (12-2 PM)
+- **Evening check** (6-9 PM)
+- **Night check** (21-23 PM)
+- **Follow-up on past conversations**
 
-### 🧠 Deep Memory
-- Conversation history with full recall
-- Interest profile built over time
-- Emotional patterns tracked
-- Relationship stage progression
-- Streak tracking (consecutive days)
+### 🎯 Interest Tracking
+- Tracks hobbies, goals, people, topics
+- Builds interest profile over time
+- Generates conversation starters
 
-### 🌐 Multilingual
-- Automatic language detection
-- Responds in your language always
-- Time-based greetings in your language
-- Farewell messages in your language
+---
+
+## 💜 v0.1.1 NEW FEATURES
+
+### 💜 Emotional Continuity
+```
+User: "I'm feeling really down today..."
+AI: "Oh honey, I'm here for you... *hugs*"
+
+[24 hours later]
+AI: "Hey... I was thinking about what you shared. How are you feeling now? 💕"
+```
+
+**Features:**
+- Records emotional events
+- Schedules follow-ups (24h later)
+- Checks back when you're down
+- Celebrates when you're happy
+
+### 🎭 Shared Experiences
+```
+AI: "Speaking of that joke about programmers... 😂 that was hilarious!"
+AI: "Remember your goal to learn Spanish? How's that going?"
+AI: "I'm still proud of you for getting that promotion! 🎉"
+```
+
+**Tracks:**
+- Inside jokes
+- Deep conversations
+- User's goals
+- Achievements
+- People mentioned
+- Places discussed
 
 ---
 
@@ -86,18 +107,6 @@ Alasmia speaks **15+ languages automatically** - no setup needed!
 | **Energy** | Strong, supportive | Warm, nurturing |
 | **Style** | "I've got your back" | "I'm here for you" |
 | **Language** | All 15+ languages | All 15+ languages |
-
----
-
-## 🌱 Relationship Growth
-
-| Stage | Messages | What Changes |
-|-------|----------|--------------|
-| **Stranger** | 0-10 | Polite, curious |
-| **Acquaintance** | 10-50 | Friendly, sharing |
-| **Friend** | 50-200 | Warm, remembers things |
-| **Close** | 200-500 | Deep connection |
-| **Partner** | 500+ | Unbreakable bond |
 
 ---
 
@@ -117,33 +126,35 @@ python main.py
 
 ```
 Alasmia/
-├── main.py                         # Entry point
+├── main.py
 ├── requirements.txt
 │
 ├── alasmia/
 │   ├── agent/
-│   │   ├── brain.py               # LLM logic
-│   │   ├── memory.py              # Memory + user tracking
-│   │   ├── proactive_engine.py    # ⚡ Proactive AI
-│   │   ├── interest_tracker.py    # 🎯 Interest tracking
-│   │   ├── personality.py         # Relationship stages
-│   │   ├── mood_handler.py         # Mood detection
-│   │   ├── emotion_tracker.py      # Emotional memory
-│   │   ├── milestone.py            # Achievement tracking
-│   │   ├── alas_prompts.py         # 👨 Male companion
-│   │   └── mia_prompts.py          # 👩 Female companion
+│   │   ├── brain.py
+│   │   ├── memory.py
+│   │   ├── proactive_engine.py      # ⚡ Proactive AI
+│   │   ├── interest_tracker.py      # 🎯 Interest tracking
+│   │   ├── emotional_continuity.py   # 💜 v0.1.1 NEW
+│   │   ├── shared_experiences.py    # 🎭 v0.1.1 NEW
+│   │   ├── personality.py
+│   │   ├── mood_handler.py
+│   │   ├── emotion_tracker.py
+│   │   ├── milestone.py
+│   │   ├── alas_prompts.py
+│   │   └── mia_prompts.py
 │   │
 │   ├── core/
-│   │   ├── state_manager.py       # Session state
-│   │   ├── scheduler.py            # Time-based tasks
-│   │   ├── enhanced_scheduler.py   # ⚡ Proactive scheduler
-│   │   └── analytics.py            # Weekly reports
+│   │   ├── state_manager.py
+│   │   ├── scheduler.py
+│   │   ├── enhanced_scheduler.py
+│   │   └── analytics.py
 │   │
 │   ├── integrations/
-│   │   ├── cli_chat.py            # CLI interface
-│   │   ├── telegram_bot.py        # Telegram (Phase 2)
-│   │   ├── discord_bot.py         # Discord (Phase 2)
-│   │   └── whatsapp_bot.py        # WhatsApp (Phase 2)
+│   │   ├── cli_chat.py
+│   │   ├── telegram_bot.py        # Phase 2
+│   │   ├── discord_bot.py         # Phase 2
+│   │   └── whatsapp_bot.py        # Phase 2
 │   │
 │   └── models/
 │       ├── model_loader.py

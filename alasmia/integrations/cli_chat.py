@@ -24,6 +24,8 @@ from alasmia.agent.mood_handler import MoodHandler
 from alasmia.agent.emotion_tracker import EmotionTracker
 from alasmia.agent.milestone import MilestoneTracker
 from alasmia.agent.proactive_engine import ProactiveEngine
+from alasmia.agent.emotional_continuity import EmotionalContinuity
+from alasmia.agent.shared_experiences import SharedExperiences
 from alasmia.agent.interest_tracker import InterestTracker
 from alasmia.core.state_manager import StateManager
 from alasmia.core.scheduler import Scheduler, detect_language
@@ -113,6 +115,12 @@ class CLIChat:
         
         # PHASE 1: Initialize Proactive Engine
         self.proactive_engine = ProactiveEngine()
+        
+        # v0.1.1: Initialize Emotional Continuity
+        self.emotional_continuity = EmotionalContinuity()
+        
+        # v0.1.1: Initialize Shared Experiences
+        self.shared_experiences = SharedExperiences()
         
         # PHASE 1: Initialize Interest Tracker
         self.interest_tracker = InterestTracker()
@@ -341,7 +349,13 @@ class CLIChat:
                     system_prompt += lang_instruction
                 
                 # PHASE 1: Add interest context to system prompt
-                interest_context = self.interest_tracker.get_memory_context(self.user_id)
+                # v0.1.1: Emotional continuity context
+        emotional_summary = self.emotional_continuity.get_emotional_summary(self.user_id)
+        if emotional_summary and emotional_summary.get('pending_followups', 0) > 0:
+            system_prompt += f"\nNOTE: User has some emotional items pending follow-up. Consider being especially attentive.\n"
+        
+        # Interest context
+        interest_context = self.interest_tracker.get_memory_context(self.user_id)
                 if interest_context:
                     system_prompt += f"\n{interest_context}\n"
                 
