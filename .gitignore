@@ -1,14 +1,17 @@
+# Models (download separately via Ollama)
+models/
 
-# Models - download separately
-models/*.gguf
-models/**/blobs/
-models/**/manifests/
+# Large model files
+*.gguf
+*.bin
 
-# Data
+# Ollama data
+ollama/
+.root/
+
+# Data & logs
 data/*.db
 data/*.db-journal
-
-# Logs
 *.log
 /tmp/
 
@@ -26,6 +29,3 @@ venv/
 # OS
 .DS_Store
 *.swp
-
-# Runtime data (don't commit)
-data/
