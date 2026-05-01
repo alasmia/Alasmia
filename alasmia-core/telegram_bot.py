@@ -188,30 +188,30 @@ What shall we talk about today?"""
         return ""
 
     async def _get_response(self, user_id: str, message: str) -> str:
-        """Get response from Ollama"""
+        """Get response from Ollama - ULTRA FAST mode"""
         messages = self.core._build_context(message, user_id)
 
-        # Build prompt for Ollama
-        prompt = self._build_prompt(messages)
+        # Build prompt for TinyLlama (fast CPU model)
+        prompt = self._build_prompt_fast(messages)
 
         async with aiohttp.ClientSession() as session:
             payload = {
-                "model": "qwen2.5:14b",
+                "model": "tinyllama:1.1b",
                 "prompt": prompt,
                 "stream": False,
                 "options": {
-                    "temperature": 0.8,
-                    "num_predict": 150,
+                    "temperature": 0.7,
+                    "num_predict": 25,
                     "top_p": 0.9,
-                    "repeat_penalty": 1.1,
-                    "num_ctx": 2048,
+                    "repeat_penalty": 1.05,
+                    "num_ctx": 512,
                 }
             }
 
             async with session.post(
                 f"{OLLAMA_URL}/api/generate",
                 json=payload,
-                timeout=aiohttp.ClientTimeout(total=180)
+                timeout=aiohttp.ClientTimeout(total=30)
             ) as resp:
                 if resp.status == 200:
                     data = await resp.json()
@@ -237,6 +237,27 @@ What shall we talk about today?"""
 
         parts.append("<|im_start|>assistant\n")
         return "\n".join(parts)
+
+    def _build_prompt_fast(self, messages: list) -> str:
+        """Build prompt for TinyLlama - optimized for speed"""
+        # TinyLlama uses Llama 2 chat format
+        system_prompt = """You are Alasmia, a helpful AI companion. Be friendly, concise, and helpful. Keep responses short and natural."""
+        
+        # Get the last user message
+        user_msg = ""
+        for msg in reversed(messages):
+            if msg['role'] == 'user':
+                user_msg = msg['content']
+                break
+        
+        # Build prompt in TinyLlama format
+        prompt = f"""<s>[INST] <<SYS>>
+{system_prompt}
+<</SYS>>
+
+{user_msg} [/INST]
+"""
+        return prompt
 
     def _calc_trust(self, conv_count: int) -> int:
         if conv_count >= 1000:

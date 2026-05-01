@@ -1,88 +1,80 @@
-# Alasmia Project Structure
+# Alasmia - INDEPENDENT AI Companion
 
-```
-/home/ubuntu/alasmia/
-├── README.md                    # Project documentation
-├── LICENSE                      # MIT License (or your choice)
-├── run.sh                       # Quick start launcher
-│
-├── config/
-│   └── config.yaml              # Configuration file
-│
-├── alasmia-core/                # Main Python package
-│   ├── __main__.py             # Entry point
-│   ├── __init__.py
-│   ├── core.py                  # Memory, trust, relationship engine
-│   ├── telegram_bot.py          # Telegram bot (@Alasmiabot)
-│   └── skills.py                # Task automation (email, files, etc)
-│
-├── models/                      # Ollama models (downloaded)
-│   └── qwen2.5:14b             # 100% CPU inference model
-│
-├── data/                        # Persistent data
-│   ├── alasmia.db               # SQLite (users, conversations, milestones)
-│   └── vector_db/              # ChromaDB (semantic memory) - future
-│
-└── skills/                      # Custom skills directory
-```
+> ⚠️ **This project is COMPLETELY INDEPENDENT** - No shared dependencies with other systems. Deploy anywhere.
 
-## Quick Start
+## Independence Guarantee
+
+- ✅ Own Python virtual environment (`.venv`)
+- ✅ Own config file (`config/config.yaml`)
+- ✅ Own database (`data/alasmia.db`)
+- ✅ Own logs (`logs/`)
+- ✅ Can run on ANY server - zero dependencies on external systems
+
+## Quick Start (Independent Deployment)
 
 ```bash
-cd /home/ubuntu/alasmia
-./run.sh
+# 1. Clone
+git clone https://github.com/alasmia/Alasmia.git
+cd Alasmia
+
+# 2. Setup Python venv (YOUR OWN - not shared)
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 3. Install dependencies
+pip install aiohttp python-telegram-bot pyyaml
+
+# 4. Configure (edit YOUR OWN config)
+cp config/config.yaml.example config/config.yaml
+nano config/config.yaml  # Add your Telegram bot token
+
+# 5. Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull tinyllama:1.1b
+
+# 6. Run
+python3 alasmia-core/__main__.py
 ```
 
-## Bot Commands
-
-| Command | Description |
-|---------|-------------|
-| `/start` | Introduce yourself to Alasmia |
-| `/profile` | View your relationship status |
-| `/skills` | See available automation skills |
-| `/reset` | Start fresh (new stranger) |
-
-## Skill Commands
-
-| Pattern | Skill | Trust Level |
-|---------|-------|-------------|
-| `calculate 2+2` | Calculator | 0 |
-| `search for X` | Web Search | 0 |
-| `read /path/to/file` | Read File | 1 |
-| `write /path:content` | Write File | 2 |
-| `run print('hello')` | Execute Code | 2 |
-| `system info` | Server Status | 2 |
-
-## Trust Levels
-
-| Level | Name | Conversations | Capabilities |
-|-------|------|--------------|--------------|
-| 0 | Stranger | 0-50 | Basic chat |
-| 1 | Acquaintance | 50-200 | +File reading |
-| 2 | Friend | 200-500 | +Code execution, write files |
-| 3 | Close | 500-1000 | +Email access |
-| 4 | Partner | 1000+ | Full access |
-
-## Systemd Service
+## Systemd Service (Independent)
 
 ```bash
-sudo systemctl enable alasmia
+# Copy service
+sudo cp alasmia.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable alasmia ollama
 sudo systemctl start alasmia
-sudo systemctl status alasmia
 ```
 
-## Logs
+## Architecture
 
-```bash
-tail -f /tmp/alasmia.log     # Bot output
-tail -f /tmp/ollama.log       # Ollama server
+```
+Alasmia/
+├── .venv/                 # YOUR OWN Python environment
+├── alasmia-core/          # Bot source
+├── config/
+│   └── config.yaml        # YOUR OWN config
+├── data/
+│   └── alasmia.db         # YOUR OWN database
+├── logs/                  # YOUR OWN logs
+├── setup.sh              # Independent setup
+└── run.sh                # Launcher
 ```
 
-## Model Info
+## Model Configuration
 
-- **Name:** Qwen 2.5 14B Instruct
-- **Quantization:** Q4_K_M (GGUF)
-- **Size:** ~8.6 GB
-- **RAM needed:** ~10 GB
-- **Inference:** 100% CPU, ~20-30 tok/sec
-- **Download:** `sudo ollama pull qwen2.5:14b`
+Default: **TinyLlama 1.1B** - Ultra fast (~1 second response on CPU)
+
+For better quality: `ollama pull qwen2.5:3b` (faster than 14B, still CPU-friendly)
+
+## Speed Benchmark
+
+| Model | Size | CPU Response | RAM |
+|-------|------|--------------|-----|
+| TinyLlama 1.1B | 637 MB | ~1-2 sec | ~1 GB |
+| Qwen2.5 3B | 2 GB | ~5-8 sec | ~4 GB |
+| Qwen2.5 14B | 9 GB | ~15-25 sec | ~10 GB |
+
+## License
+
+MIT - Fully independent project.
