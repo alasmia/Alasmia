@@ -1,0 +1,28 @@
+
+# Models - download separately
+models/*.gguf
+models/**/blobs/
+models/**/manifests/
+
+# Data
+data/*.db
+data/*.db-journal
+
+# Logs
+*.log
+/tmp/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+*.swp
