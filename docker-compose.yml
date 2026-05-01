@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  alasmia:
+    build: .
+    container_name: alasmia
+    restart: unless-stopped
+    environment:
+      - MODEL_PROVIDER=${MODEL_PROVIDER:-ollama}
+      - MODEL_NAME=${MODEL_NAME:-qwen2.5:14b}
+      - OLLAMA_URL=${OLLAMA_URL:-http://host.docker.internal:11434}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:-}
+      - ADVANCED_MODE=${ADVANCED_MODE:-false}
+      - DATA_DIR=/app/data
+    volumes:
+      - ./data:/app/data
+      - ./data/alasmia.db:/app/data/alasmia.db
+      - ./data/vector_db:/app/data/vector_db
+      - ollama-data:/root/.ollama
+    ports:
+      - "8000:8000"  # Web UI
+    network_mode: host
+
+  # Optional: Ollama service (uncomment if you want Ollama in Docker)
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: ollama
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   ports:
+  #     - "11434:11434"
+
+volumes:
+  ollama-data:
