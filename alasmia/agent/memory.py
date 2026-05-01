@@ -1,23 +1,25 @@
 """
-Alasmia Memory - Long-term and Short-term Memory Management
+Alasmia Memory - Complete long-term and short-term memory management
 
-Handles conversation storage, user preferences, and semantic search.
+Stores user profiles, conversations, emotions, preferences, and milestones.
 """
 
 import os
 import json
 from datetime import datetime
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 from pathlib import Path
 
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
+try:
+    from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, JSON
+    from sqlalchemy.ext.declarative import declarative_base
+    from sqlalchemy.orm import sessionmaker
+    HAS_SQLALCHEMY = True
+except ImportError:
+    HAS_SQLALCHEMY = False
 
-load_dotenv()
 
-Base = declarative_base()
+Base = declarative_base() if HAS_SQLALCHEMY else object
 
 
 class ConversationMessage(Base):
@@ -26,10 +28,11 @@ class ConversationMessage(Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(String(255), index=True)
-    role = Column(String(50))  # "user" or "assistant"
+    role = Column(String(50))
     content = Column(Text)
+    mood = Column(String(50), nullable=True)
     timestamp = Column(DateTime, default=datetime.utcnow)
-    language = Column(String(20), default="hinglish")
+    language = Column(String(20), default="english")
 
 
 class UserPreference(Base):
@@ -39,207 +42,273 @@ class UserPreference(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(String(255), unique=True, index=True)
     name = Column(String(255), nullable=True)
-    language = Column(String(50), default="hinglish")
+    companion_gender = Column(String(20), default="female")  # male (Alas) or female (Mia)
+    language = Column(String(50), default="english")
     relationship_stage = Column(String(50), default="stranger")
     message_count = Column(Integer, default=0)
+    connection_score = Column(Integer, default=0)
     first_seen = Column(DateTime, default=datetime.utcnow)
     last_seen = Column(DateTime, default=datetime.utcnow)
-    personality_prefs = Column(Text, nullable=True)  # JSON string
+    preferences_json = Column(Text, nullable=True)  # JSON string
+    milestones_json = Column(Text, nullable=True)  # JSON string
 
 
 class MemoryManager:
-    """Manages both short-term and long-term memory."""
+    """
+    Manages complete user memory including:
+    - User profiles
+    - Conversation history
+    - Emotional events
+    - Preferences
+    - Milestones
+    """
     
     def __init__(self):
-        """Initialize memory manager with database."""
+        """Initialize memory manager."""
         db_path = os.getenv("MEMORY_DB_PATH", "./data/alasmia.db")
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
         
-        self.engine = create_engine(f"sqlite:///{db_path}", echo=False)
-        Base.metadata.create_all(self.engine)
+        if HAS_SQLALCHEMY:
+            self.engine = create_engine(f"sqlite:///{db_path}", echo=False)
+            Base.metadata.create_all(self.engine)
+            Session = sessionmaker(bind=self.engine)
+            self.session = Session()
+        else:
+            self.session = None
+            self.engine = None
         
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
-        
-        # Short-term memory (in-memory cache)
-        self.short_term: Dict[str, List[Dict]] = {}
+        # File-based fallback
+        self.data_dir = Path("./data")
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.memory_file = self.data_dir / "memory.json"
+        self.memory = self._load_memory()
     
-    def add_message(
-        self,
-        user_id: str,
-        role: str,
-        content: str,
-        language: str = "hinglish"
-    ) -> None:
-        """Add a message to conversation history."""
-        message = ConversationMessage(
-            user_id=user_id,
-            role=role,
-            content=content,
-            language=language
-        )
-        self.session.add(message)
-        self.session.commit()
-        
-        # Update short-term cache
-        if user_id not in self.short_term:
-            self.short_term[user_id] = []
-        self.short_term[user_id].append({
-            "role": role,
-            "content": content
-        })
-        
-        # Update user message count
-        self.increment_message_count(user_id)
+    def _load_memory(self) -> dict:
+        """Load memory from file (fallback)."""
+        if self.memory_file.exists():
+            with open(self.memory_file, 'r') as f:
+                return json.load(f)
+        return {"users": {}, "conversations": {}}
     
-    def get_conversation(
-        self,
-        user_id: str,
-        limit: int = 50
-    ) -> List[Dict[str, str]]:
-        """Get recent conversation history for a user."""
-        messages = (
-            self.session.query(ConversationMessage)
-            .filter_by(user_id=user_id)
-            .order_by(ConversationMessage.timestamp.desc())
-            .limit(limit)
-            .all()
-        )
-        
-        # Return in chronological order (oldest first)
-        return [
-            {"role": m.role, "content": m.content}
-            for m in reversed(messages)
-        ]
+    def _save_memory(self):
+        """Save memory to file."""
+        with open(self.memory_file, 'w') as f:
+            json.dump(self.memory, f, indent=2)
     
-    def get_user_info(self, user_id: str) -> Optional[Dict]:
-        """Get user information and preferences."""
-        user = (
-            self.session.query(UserPreference)
-            .filter_by(user_id=user_id)
-            .first()
-        )
-        
-        if not user:
-            return None
-        
-        return {
-            "name": user.name,
-            "language": user.language,
-            "relationship_stage": user.relationship_stage,
-            "message_count": user.message_count,
-            "first_seen": user.first_seen.isoformat() if user.first_seen else None,
-            "last_seen": user.last_seen.isoformat() if user.last_seen else None,
-            "personality_prefs": json.loads(user.personality_prefs or "{}")
-        }
+    # ========== USER MANAGEMENT ==========
     
-    def create_user(
-        self,
-        user_id: str,
-        name: Optional[str] = None,
-        language: str = "hinglish"
-    ) -> None:
+    def create_user(self, user_id: str, name: str = None, language: str = "english", companion_gender: str = "female"):
         """Create a new user profile."""
-        user = UserPreference(
-            user_id=user_id,
-            name=name,
-            language=language,
-            relationship_stage="stranger",
-            message_count=0
-        )
-        self.session.add(user)
-        self.session.commit()
-    
-    def update_user_name(self, user_id: str, name: str) -> None:
-        """Update user's name."""
-        user = self.get_or_create_user(user_id)
-        user.name = name
-        self.session.commit()
-    
-    def update_user_language(self, user_id: str, language: str) -> None:
-        """Update user's preferred language."""
-        user = self.get_or_create_user(user_id)
-        user.language = language
-        self.session.commit()
-    
-    def update_relationship_stage(self, user_id: str, stage: str) -> None:
-        """Update user's relationship stage."""
-        valid_stages = ["stranger", "acquaintance", "friend", "close", "partner"]
-        if stage not in valid_stages:
-            raise ValueError(f"Invalid stage. Must be one of: {valid_stages}")
-        
-        user = self.get_or_create_user(user_id)
-        user.relationship_stage = stage
-        self.session.commit()
-    
-    def increment_message_count(self, user_id: str) -> None:
-        """Increment user's message count and update last_seen."""
-        user = self.get_or_create_user(user_id)
-        user.message_count += 1
-        user.last_seen = datetime.utcnow()
-        self.session.commit()
-        
-        # Auto-progress relationship stage based on message count
-        self._check_stage_progression(user)
-    
-    def _check_stage_progression(self, user) -> None:
-        """Check and update relationship stage based on message count."""
-        count = user.message_count
-        current = user.relationship_stage
-        
-        # Progression thresholds
-        new_stage = None
-        if current == "stranger" and count >= 10:
-            new_stage = "acquaintance"
-        elif current == "acquaintance" and count >= 50:
-            new_stage = "friend"
-        elif current == "friend" and count >= 200:
-            new_stage = "close"
-        elif current == "close" and count >= 500:
-            new_stage = "partner"
-        
-        if new_stage:
-            user.relationship_stage = new_stage
-            self.session.commit()
-    
-    def get_or_create_user(self, user_id: str) -> UserPreference:
-        """Get existing user or create new one."""
-        user = (
-            self.session.query(UserPreference)
-            .filter_by(user_id=user_id)
-            .first()
-        )
-        
-        if not user:
-            user = UserPreference(user_id=user_id)
+        if self.session and HAS_SQLALCHEMY:
+            user = UserPreference(
+                user_id=user_id,
+                name=name,
+                language=language,
+                companion_gender=companion_gender,
+                relationship_stage="stranger",
+                message_count=0,
+                first_seen=datetime.utcnow(),
+                last_seen=datetime.utcnow()
+            )
             self.session.add(user)
             self.session.commit()
         
-        return user
+        # Also save to file
+        if user_id not in self.memory["users"]:
+            self.memory["users"][user_id] = {
+                "name": name,
+                "companion_gender": companion_gender,
+                "language": language,
+                "relationship_stage": "stranger",
+                "message_count": 0,
+                "connection_score": 0,
+                "first_seen": datetime.utcnow().isoformat(),
+                "last_seen": datetime.utcnow().isoformat(),
+                "milestones": [],
+                "preferences": {}
+            }
+            self.memory["conversations"][user_id] = []
+            self._save_memory()
     
-    def save_personality_prefs(
-        self,
-        user_id: str,
-        prefs: Dict
-    ) -> None:
-        """Save personality preferences as JSON."""
-        user = self.get_or_create_user(user_id)
-        user.personality_prefs = json.dumps(prefs)
-        self.session.commit()
-    
-    def clear_conversation(self, user_id: str) -> None:
-        """Clear conversation history for a user (keeps profile)."""
-        (
-            self.session.query(ConversationMessage)
-            .filter_by(user_id=user_id)
-            .delete()
-        )
-        self.session.commit()
+    def get_user_info(self, user_id: str) -> Optional[Dict]:
+        """Get user information."""
+        if self.session and HAS_SQLALCHEMY:
+            user = self.session.query(UserPreference).filter_by(user_id=user_id).first()
+            if user:
+                return {
+                    "name": user.name,
+                    "companion_gender": user.companion_gender,
+                    "language": user.language,
+                    "relationship_stage": user.relationship_stage,
+                    "message_count": user.message_count,
+                    "connection_score": user.connection_score,
+                    "first_seen": user.first_seen.isoformat() if user.first_seen else None,
+                    "last_seen": user.last_seen.isoformat() if user.last_seen else None,
+                    "milestones": json.loads(user.milestones_json or "[]"),
+                    "preferences": json.loads(user.preferences_json or "{}")
+                }
         
-        # Clear short-term cache
-        if user_id in self.short_term:
-            del self.short_term[user_id]
+        # File fallback
+        return self.memory["users"].get(user_id)
     
-    def close(self) -> None:
+    def update_user(self, user_id: str, updates: Dict):
+        """Update user information."""
+        if self.session and HAS_SQLALCHEMY:
+            user = self.session.query(UserPreference).filter_by(user_id=user_id).first()
+            if user:
+                for key, value in updates.items():
+                    if hasattr(user, key):
+                        setattr(user, key, value)
+                user.last_seen = datetime.utcnow()
+                self.session.commit()
+        
+        # File fallback
+        if user_id in self.memory["users"]:
+            self.memory["users"][user_id].update(updates)
+            self.memory["users"][user_id]["last_seen"] = datetime.utcnow().isoformat()
+            self._save_memory()
+    
+    def get_or_create_user(self, user_id: str) -> any:
+        """Get existing user or create new one."""
+        info = self.get_user_info(user_id)
+        if not info:
+            self.create_user(user_id)
+            return self.get_user_info(user_id)
+        return info
+    
+    # ========== CONVERSATION MANAGEMENT ==========
+    
+    def add_message(self, user_id: str, role: str, content: str, mood: str = None, language: str = "english"):
+        """Add a message to conversation history."""
+        if self.session and HAS_SQLALCHEMY:
+            msg = ConversationMessage(
+                user_id=user_id,
+                role=role,
+                content=content,
+                mood=mood,
+                language=language,
+                timestamp=datetime.utcnow()
+            )
+            self.session.add(msg)
+        
+        # Also save to file
+        if user_id not in self.memory["conversations"]:
+            self.memory["conversations"][user_id] = []
+        
+        self.memory["conversations"][user_id].append({
+            "role": role,
+            "content": content,
+            "mood": mood,
+            "timestamp": datetime.utcnow().isoformat(),
+            "language": language
+        })
+        
+        # Update message count
+        if role == "user":
+            self.increment_message_count(user_id)
+        
+        self._save_memory()
+    
+    def get_conversation(self, user_id: str, limit: int = 50) -> List[Dict]:
+        """Get recent conversation history."""
+        if self.session and HAS_SQLALCHEMY:
+            messages = (
+                self.session.query(ConversationMessage)
+                .filter_by(user_id=user_id)
+                .order_by(ConversationMessage.timestamp.desc())
+                .limit(limit)
+                .all()
+            )
+            return [{"role": m.role, "content": m.content, "mood": m.mood} for m in reversed(messages)]
+        
+        # File fallback
+        conv = self.memory["conversations"].get(user_id, [])
+        return list(reversed(conv[-limit:]))
+    
+    def clear_conversation(self, user_id: str):
+        """Clear conversation history."""
+        if self.session and HAS_SQLALCHEMY:
+            self.session.query(ConversationMessage).filter_by(user_id=user_id).delete()
+            self.session.commit()
+        
+        # File fallback
+        if user_id in self.memory["conversations"]:
+            self.memory["conversations"][user_id] = []
+            self._save_memory()
+    
+    def increment_message_count(self, user_id: str):
+        """Increment user's message count and check stage progression."""
+        info = self.get_user_info(user_id)
+        if info:
+            new_count = info.get("message_count", 0) + 1
+            self.update_user(user_id, {"message_count": new_count})
+            
+            # Auto-progress stage
+            self._check_stage_progression(user_id, new_count)
+    
+    def _check_stage_progression(self, user_id: str, message_count: int):
+        """Check and update relationship stage based on message count."""
+        thresholds = {"acquaintance": 10, "friend": 50, "close": 200, "partner": 500}
+        
+        info = self.get_user_info(user_id)
+        current_stage = info.get("relationship_stage", "stranger") if info else "stranger"
+        
+        for stage, threshold in thresholds.items():
+            if message_count >= threshold:
+                current_idx = ["stranger", "acquaintance", "friend", "close", "partner"].index(current_stage)
+                new_idx = ["stranger", "acquaintance", "friend", "close", "partner"].index(stage)
+                
+                if new_idx > current_idx:
+                    self.update_relationship_stage(user_id, stage)
+                    break
+    
+    def update_relationship_stage(self, user_id: str, stage: str):
+        """Update user's relationship stage."""
+        valid_stages = ["stranger", "acquaintance", "friend", "close", "partner"]
+        if stage not in valid_stages:
+            return
+        
+        self.update_user(user_id, {"relationship_stage": stage})
+    
+    # ========== PREFERENCES ==========
+    
+    def save_preference(self, user_id: str, key: str, value: any):
+        """Save a user preference."""
+        info = self.get_user_info(user_id)
+        if info:
+            prefs = info.get("preferences", {})
+            prefs[key] = value
+            self.update_user(user_id, {"preferences": prefs})
+    
+    def get_preference(self, user_id: str, key: str, default: any = None) -> any:
+        """Get a user preference."""
+        info = self.get_user_info(user_id)
+        if info:
+            return info.get("preferences", {}).get(key, default)
+        return default
+    
+    # ========== MILESTONES ==========
+    
+    def add_milestone(self, user_id: str, milestone: str):
+        """Record a milestone achievement."""
+        info = self.get_user_info(user_id)
+        if info:
+            milestones = info.get("milestones", [])
+            if milestone not in milestones:
+                milestones.append({
+                    "milestone": milestone,
+                    "timestamp": datetime.utcnow().isoformat()
+                })
+                self.update_user(user_id, {"milestones": milestones})
+    
+    def get_milestones(self, user_id: str) -> List[Dict]:
+        """Get user's milestone achievements."""
+        info = self.get_user_info(user_id)
+        return info.get("milestones", []) if info else []
+    
+    # ========== CLEANUP ==========
+    
+    def close(self):
         """Close database session."""
-        self.session.close()
+        if self.session:
+            self.session.close()

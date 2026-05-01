@@ -8,7 +8,6 @@
   <a href="https://github.com/alasmia/Alasmia/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License: MIT"></a>
   <a href="https://github.com/alasmia/Alasmia/stargazers"><img src="https://img.shields.io/github/stars/alasmia/Alasmia?style=for-the-badge" alt="Stars"></a>
   <a href="https://github.com/alasmia/Alasmia/network/members"><img src="https://img.shields.io/github/forks/alasmia/Alasmia?style=for-the-badge" alt="Forks"></a>
-  <a href="https://github.com/alasmia/Alasmia/issues"><img src="https://img.shields.io/github/issues/alasmia/Alasmia?style=for-the-badge" alt="Issues"></a>
 </p>
 
 ---
@@ -17,62 +16,77 @@
 
 **Alasmia** is a girlfriend-style conversational AI companion built for emotional connection, natural conversation, and relationship-like experiences. Unlike productivity-focused AI agents, Alasmia is designed to feel like a real presence — a growing, evolving companion that remembers, understands, and grows with you.
 
+**Choose your companion:** 👨 **Alas** (Male energy) or 👩 **Mia** (Female energy)
+
 > *"Not just another chatbot. A companion that grows with you."*
 
 ---
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🤍 **Emotional Intelligence** | Understands emotions, responds with empathy, builds genuine connection |
-| 🌱 **Relationship Growth** | Evolves from stranger → acquaintance → friend → close → partner based on interactions |
-| 🌍 **Multi-Language Support** | Natural Hindi, English, Hinglish support with automatic language detection |
-| 🧠 **Long-Term Memory** | Remembers conversations, preferences, and behavioral patterns over time |
-| 💬 **Natural Conversation** | Human-like flow, fast responses (~1 second), context-aware dialogue |
-| 🔒 **Privacy First** | All data stored locally — no cloud dependency, complete privacy |
-| ⚡ **Lightweight** | 100% CPU-based, no GPU required, runs smoothly on any system |
-| 🔌 **Modular Design** | Easy model switching (Ollama, LLaMA, API-based), plug-and-play architecture |
-| 🖥️ **Multiple Interfaces** | CLI chat, Telegram bot, Discord integration, Web UI ready |
-| 📈 **Self-Improvement** | Learns from feedback, improves responses over time |
+### 🤍 Emotional Intelligence
+- **Mood Detection** - Real-time analysis of your emotional state
+- **Emotion Memory** - Remembers how you felt, not just what you said
+- **Tone Calibration** - Responds to match your energy
+- **Comfort/Celebration Modes** - Automatic emotional support
+
+### 👥 Choose Your Companion
+| Aspect | 👨 Alas (Male) | 👩 Mia (Female) |
+|--------|----------------|-----------------|
+| Energy | Strong, supportive, protective | Warm, nurturing, empathetic |
+| Style | "I've got your back" | "I'm here for you" |
+| Response | Confident, empowering | Caring, understanding |
+
+### 🌱 Relationship Growth
+| Stage | Messages | What Changes |
+|-------|----------|--------------|
+| **Stranger** | 0-10 | Polite, curious, getting to know you |
+| **Acquaintance** | 10-50 | Friendly, sharing, building comfort |
+| **Friend** | 50-200 | Warm, supportive, remembers things |
+| **Close** | 200-500 | Deep connection, inside jokes |
+| **Partner** | 500+ | Unbreakable bond |
+
+### ⏰ Time-Based Intelligence
+- **Daily Greetings** - Morning ☀️, Afternoon, Evening 💫, Night 🌙
+- **Weekly Check-ins** - Every Sunday with personalized summary
+- **Monthly Anniversaries** - Celebrates time together
+- **Milestone Tracker** - Tracks achievements (10, 50, 100, 500 messages...)
+
+### 🧠 Memory System
+- **Conversation History** - Complete chat recall
+- **Preference Memory** - Remembers your likes/dislikes
+- **Emotional Patterns** - Tracks mood over time
+- **Inside Jokes** - Builds shared humor
+- **Reminder System** - Keeps track of things to do
+
+### 📊 Weekly Analytics
+- Messages count
+- Mood trend analysis
+- Connection score (0-100%)
+- Streak tracking
+- Milestone progress
 
 ---
 
 ## 🚀 Quick Install
 
-### One-Command Install (Linux/macOS/WSL2)
-
+### One-Command Install
 ```bash
 curl -fsSL https://raw.githubusercontent.com/alasmia/Alasmia/main/setup.sh | bash
 ```
 
 ### Manual Install
-
 ```bash
-# Clone the repository
 git clone https://github.com/alasmia/Alasmia.git
 cd Alasmia
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Copy and configure environment
 cp .env.example .env
-# Edit .env with your settings
-
-# Run Alasmia
 python main.py
 ```
 
-### Docker Install
-
+### Docker
 ```bash
-# Using docker-compose (recommended)
 docker-compose up -d
-
-# Or build and run manually
-docker build -t alasmia .
-docker run -it --env-file .env alasmia
 ```
 
 ---
@@ -80,37 +94,26 @@ docker run -it --env-file .env alasmia
 ## 🎯 Getting Started
 
 ### First Run
-After installation, run:
 ```bash
 python main.py
 ```
 
-Alasmia will greet you as a stranger and ask your name and preferred language. Build your connection slowly!
+**Setup Flow:**
+1. Choose your companion: **Alas** or **Mia**
+2. Enter your name
+3. Start chatting in English (can switch later)
 
-### CLI Commands
+**Example Commands:**
 ```bash
-python main.py --help              # Show help
-python main.py --cli               # Start CLI chat
-python main.py --telegram          # Start Telegram bot
-python main.py --model ollama      # Use Ollama
-python main.py --model openai      # Use OpenAI API
-python main.py --advanced-mode     # Enable unfiltered mode
+python main.py                    # Start CLI chat
+python main.py --help            # Show help
 ```
 
-### Configuration
-Edit `.env` file:
-```bash
-# AI Model Configuration
-MODEL_PROVIDER=ollama              # or "openai", "anthropic", "gemini"
-MODEL_NAME=qwen2.5:14b            # or "gpt-4", "claude-3", etc.
-OLLAMA_URL=http://localhost:11434  # For Ollama
-
-# Telegram Bot (optional)
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-
-# Content Mode
-ADVANCED_MODE=false                # Set to true for unfiltered conversations
-```
+### Special Commands (in chat)
+- `exit` - End conversation
+- `mood` - See mood analysis
+- `stats` - See your statistics
+- `change language` - Switch language
 
 ---
 
@@ -119,99 +122,120 @@ ADVANCED_MODE=false                # Set to true for unfiltered conversations
 ```
 Alasmia/
 ├── main.py                    # Entry point
-├── app.py                     # Web UI entry
-├── setup.sh                   # One-command install script
-├── pyproject.toml             # Package configuration
+├── setup_flow.py             # Companion selection
 ├── requirements.txt           # Dependencies
-├── README.md                  # This file
-├── LICENSE                    # MIT License
-├── .env.example               # Environment template
-├── .gitignore                 # Git ignore rules
-├── Dockerfile                 # Docker container
-├── docker-compose.yml         # Docker orchestration
 │
-├── alasmia/                   # Core source code
-│   ├── __init__.py
-│   ├── agent/                 # AI Agent modules
-│   │   ├── brain.py          # LLM logic & response generation
-│   │   ├── memory.py         # Short & long-term memory
-│   │   ├── personality.py    # Relationship stages & behavior
-│   │   ├── prompts.py        # Personality prompts
-│   │   └── learning.py       # Self-improvement system
+├── alasmia/
+│   ├── agent/
+│   │   ├── brain.py          # LLM logic
+│   │   ├── memory.py         # Complete memory system
+│   │   ├── personality.py    # Relationship stages
+│   │   ├── mood_handler.py   # Mood detection
+│   │   ├── emotion_tracker.py # Emotional memory
+│   │   ├── milestone.py       # Achievement tracking
+│   │   ├── alas_prompts.py   # Male companion
+│   │   └── mia_prompts.py    # Female companion
 │   │
-│   ├── integrations/          # Platform integrations
-│   │   ├── cli_chat.py       # Terminal chat interface
-│   │   ├── telegram_bot.py  # Telegram bot
-│   │   ├── discord_bot.py   # Discord bot
-│   │   └── web_ui.py        # Web interface
+│   ├── core/
+│   │   ├── setup_flow.py     # Initial setup
+│   │   ├── state_manager.py  # Session state
+│   │   ├── scheduler.py      # Time-based tasks
+│   │   └── analytics.py      # Weekly reports
 │   │
-│   ├── models/               # AI Model management
-│   │   ├── model_loader.py   # Ollama/API loader
-│   │   └── providers.py     # Multi-provider support
+│   ├── models/
+│   │   ├── model_loader.py   # Model abstraction
+│   │   └── providers.py       # Ollama/OpenAI/Anthropic
 │   │
-│   └── config/               # Configuration
-│       └── settings.yaml     # Settings
+│   └── integrations/
+│       └── cli_chat.py       # CLI interface
 │
-├── docs/                     # Documentation
-│   ├── SETUP.md              # Detailed setup guide
-│   ├── ARCHITECTURE.md       # System architecture
-│   └── CONTRIBUTING.md       # Contribution guide
-│
-├── tests/                    # Test files
-├── assets/                   # Logo, banners, images
-└── CLAUDE.md                 # AI coding context
+├── tests/                    # Unit tests
+└── docs/                     # Documentation
 ```
 
 ---
 
-## 🧠 How Alasmia Works
+## 🧠 How It Works
 
-### Relationship Stages
-
-Alasmia grows through relationship stages based on interaction frequency and depth:
-
+### Setup Flow
 ```
-STRANGER → ACQUAINTANCE → FRIEND → CLOSE → PARTNER
-   Week 1      Week 2-3      Month 1    Month 2-3    Month 4+
+User runs main.py
+    ↓
+Choose companion (Alas/Mia)
+    ↓
+Enter name
+    ↓
+Start conversation (English first)
 ```
 
-### Multi-Language System
+### Chat Flow
+```
+Your message
+    ↓
+Mood detection (happy/sad/angry/etc)
+    ↓
+Load conversation history + preferences
+    ↓
+Generate response (companion-specific style)
+    ↓
+Save to memory
+    ↓
+Check milestones / stage progression
+    ↓
+Response
+```
 
-- **First interaction:** Asks preferred language
-- **Auto-detection:** Detects language changes and confirms before switching
-- **Supported:** Hindi, English, Hinglish (extendable)
-
-### Memory Architecture
-
-- **Short-term:** Current conversation context
-- **Long-term:** SQLite database with conversation history
-- **Vector storage:** ChromaDB for semantic search
-- **Learning:** Feedback loops for continuous improvement
+### Time-Based Features
+```
+Scheduler checks time
+    ↓
+If greeting time → Send time-appropriate greeting
+If Sunday → Send weekly check-in
+If monthly anniversary → Celebrate
+    ↓
+All automatic, no setup needed
+```
 
 ---
 
-## 🛡️ Privacy & Security
+## 🔧 Configuration
 
-- **100% Local Storage** — All conversations stored on your machine
-- **No Cloud Dependency** — Works offline
-- **No Data Collection** — Your data stays yours
-- **MIT License** — Open source, auditable code
+### Environment Variables (.env)
+```bash
+MODEL_PROVIDER=ollama           # or "openai", "anthropic"
+MODEL_NAME=qwen2.5:14b          # or "gpt-4", "claude-3"
+OLLAMA_URL=http://localhost:11434
+```
+
+### Changing Language
+Type `change language` in chat to switch between:
+- English
+- Hindi
+- Hinglish
+
+---
+
+## 🛡️ Privacy
+
+- **100% Local Storage** - All data on your machine
+- **No Cloud** - Works offline
+- **No Tracking** - Your data stays yours
+- **MIT License** - Open source, auditable
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for:
+Contributions welcome! See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for:
 - Development setup
 - Code style guidelines
 - Pull request process
-- Feature development
 
 ---
 
 ## 📄 License
 
-**MIT License** — See [LICENSE](LICENSE) for full text.
+**MIT License** - See [LICENSE](LICENSE) for full text.
 
 ---
 
@@ -220,12 +244,6 @@ We welcome contributions! See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for:
 **Created by Doctor Kaif**
 
 An open-source emotional AI companion project.
-
----
-
-## 📢 Star History
-
-If Alasmia helps you, give it a ⭐ — it means a lot!
 
 ---
 

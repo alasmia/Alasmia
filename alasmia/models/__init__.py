@@ -5,7 +5,7 @@ from alasmia.models.providers import OllamaProvider, OpenAIProvider, AnthropicPr
 
 __all__ = [
     "ModelLoader",
-    "OllamaProvider",
+    "OllamaProvider", 
     "OpenAIProvider",
     "AnthropicProvider",
 ]
