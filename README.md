@@ -12,28 +12,58 @@
 
 ---
 
-## 🎯 v0.1.1 - PHASE 1 ENHANCEMENT
+## 🎯 v0.1.2 - PHASE 2: MULTI-PLATFORM
 
-> *"Building deeper emotional connections over time."*
+> *"Your AI life partner, available everywhere."*
 
-### NEW in v0.1.1:
-- 💜 **Emotional Continuity** - Follows up on your emotional state
-- 🎭 **Shared Experiences** - Tracks inside jokes, deep topics, achievements
-- 🔄 **Better Follow-ups** - AI remembers how you felt and checks back
-- 💕 **Inside Jokes** - Builds shared humor over time
-- 🎯 **Experience Summaries** - Knows what you've talked about
+### NEW in v0.1.2:
+- 📱 **Telegram Bot Enhanced** - All Phase 1 + Phase 2 features
+- 💬 **WhatsApp Integration** - Full webhook-based integration
+- 🌐 **Unified Platform Handling** - Same experience on all platforms
+- ⚡ **Platform-Specific Optimizations** - Each platform optimized
 
 ---
 
 ## 💜 What is Alasmia?
 
 **Alasmia** is an AI life partner that:
+- **Available on multiple platforms** (Telegram, WhatsApp, CLI, Discord)
 - Initiates conversations proactively
 - Tracks your interests deeply
-- **Follows up on your emotional state**
-- **Remembers shared experiences and inside jokes**
+- Follows up on your emotional state
+- Remembers shared experiences
 - Speaks your language automatically
 - Grows closer to you over time
+
+---
+
+## 🌐 MULTI-PLATFORM SUPPORT
+
+| Platform | Status | Features |
+|----------|--------|----------|
+| **Telegram** | ✅ Complete | All Phase 1 + 2 features |
+| **WhatsApp** | ✅ Complete | Full integration |
+| **CLI** | ✅ Complete | Full features |
+| **Discord** | 🔄 Coming | Phase 2 |
+
+### Telegram Bot
+```bash
+# Set token
+export TELEGRAM_BOT_TOKEN="your_token_from_BotFather"
+
+# Run
+python -m alasmia.integrations.telegram_bot
+```
+
+### WhatsApp Integration
+```bash
+# Configure
+export WHATSAPP_TOKEN="your_meta_token"
+export WHATSAPP_PHONE_ID="your_phone_id"
+
+# Run webhook server
+python -m alasmia.integrations.whatsapp_bot
+```
 
 ---
 
@@ -41,62 +71,47 @@
 
 Speaks **15+ languages automatically** - no setup needed!
 
-| Language | Status |
-|----------|--------|
-| English, Mandarin Chinese, Spanish, Arabic, Hindi | ✅ |
-| Japanese, Korean, French, German, Portuguese | ✅ |
-| Russian, Vietnamese, Thai, Indonesian, Turkish | ✅ |
-| + More... | ✅ |
-
 ---
 
 ## ⚡ PHASE 1 FEATURES (v0.1.0)
 
-### ⚡ Proactive AI
-- **Morning check-in** (7-9 AM)
-- **Afternoon check** (12-2 PM)
-- **Evening check** (6-9 PM)
-- **Night check** (21-23 PM)
-- **Follow-up on past conversations**
-
-### 🎯 Interest Tracking
-- Tracks hobbies, goals, people, topics
-- Builds interest profile over time
-- Generates conversation starters
+| Feature | Description |
+|---------|-------------|
+| ⚡ Proactive AI | Initiates morning/evening check-ins |
+| 🎯 Interest Tracking | Remembers hobbies, goals, topics |
+| 🌐 Multilingual | Auto-detects and responds in your language |
 
 ---
 
-## 💜 v0.1.1 NEW FEATURES
+## 💜 PHASE 1 ENHANCEMENTS (v0.1.1)
 
-### 💜 Emotional Continuity
+| Feature | Description |
+|---------|-------------|
+| 💜 Emotional Continuity | Follows up when you're down |
+| 🎭 Shared Experiences | Tracks inside jokes, achievements |
+| 🔄 Better Follow-ups | AI remembers how you felt |
+
+---
+
+## 📱 PHASE 2: MULTI-PLATFORM (v0.1.2)
+
+| Platform | Features |
+|----------|----------|
+| **Telegram** | Full bot with /commands, conversation flow |
+| **WhatsApp** | Webhook-based, send/receive messages |
+| **CLI** | All features, rich terminal UI |
+| **Discord** | Coming soon |
+
+### Telegram Commands
 ```
-User: "I'm feeling really down today..."
-AI: "Oh honey, I'm here for you... *hugs*"
-
-[24 hours later]
-AI: "Hey... I was thinking about what you shared. How are you feeling now? 💕"
+/start - Begin conversation
+/help - Show commands
+/stats - Your statistics
+/mood - Mood analysis
+/interests - Tracked interests
+/language - Change language
+/companion - Switch Alas/Mia
 ```
-
-**Features:**
-- Records emotional events
-- Schedules follow-ups (24h later)
-- Checks back when you're down
-- Celebrates when you're happy
-
-### 🎭 Shared Experiences
-```
-AI: "Speaking of that joke about programmers... 😂 that was hilarious!"
-AI: "Remember your goal to learn Spanish? How's that going?"
-AI: "I'm still proud of you for getting that promotion! 🎉"
-```
-
-**Tracks:**
-- Inside jokes
-- Deep conversations
-- User's goals
-- Achievements
-- People mentioned
-- Places discussed
 
 ---
 
@@ -106,18 +121,34 @@ AI: "I'm still proud of you for getting that promotion! 🎉"
 |--|----------------|-----------------|
 | **Energy** | Strong, supportive | Warm, nurturing |
 | **Style** | "I've got your back" | "I'm here for you" |
-| **Language** | All 15+ languages | All 15+ languages |
+| **Platform** | All platforms | All platforms |
 
 ---
 
 ## 🚀 Quick Start
 
+### CLI
 ```bash
 git clone https://github.com/alasmia/Alasmia.git
 cd Alasmia
 pip install -r requirements.txt
 cp .env.example .env
 python main.py
+```
+
+### Telegram
+```bash
+# Get token from @BotFather
+export TELEGRAM_BOT_TOKEN="your_token"
+python -m alasmia.integrations.telegram_bot
+```
+
+### WhatsApp
+```bash
+# Get credentials from Meta Business
+export WHATSAPP_TOKEN="your_token"
+export WHATSAPP_PHONE_ID="your_phone_id"
+python -m alasmia.integrations.whatsapp_bot
 ```
 
 ---
@@ -133,28 +164,28 @@ Alasmia/
 │   ├── agent/
 │   │   ├── brain.py
 │   │   ├── memory.py
-│   │   ├── proactive_engine.py      # ⚡ Proactive AI
-│   │   ├── interest_tracker.py      # 🎯 Interest tracking
-│   │   ├── emotional_continuity.py   # 💜 v0.1.1 NEW
-│   │   ├── shared_experiences.py    # 🎭 v0.1.1 NEW
+│   │   ├── proactive_engine.py       # ⚡ Proactive AI
+│   │   ├── interest_tracker.py       # 🎯 Interest tracking
+│   │   ├── emotional_continuity.py    # 💜 Emotional continuity
+│   │   ├── shared_experiences.py      # 🎭 Shared experiences
 │   │   ├── personality.py
 │   │   ├── mood_handler.py
 │   │   ├── emotion_tracker.py
 │   │   ├── milestone.py
-│   │   ├── alas_prompts.py
-│   │   └── mia_prompts.py
+│   │   ├── alas_prompts.py            # 👨 Male companion
+│   │   └── mia_prompts.py             # 👩 Female companion
 │   │
 │   ├── core/
 │   │   ├── state_manager.py
-│   │   ├── scheduler.py
-│   │   ├── enhanced_scheduler.py
+│   │   ├── scheduler.py               # Multilingual scheduler
+│   │   ├── enhanced_scheduler.py       # Proactive scheduler
 │   │   └── analytics.py
 │   │
 │   ├── integrations/
-│   │   ├── cli_chat.py
-│   │   ├── telegram_bot.py        # Phase 2
-│   │   ├── discord_bot.py         # Phase 2
-│   │   └── whatsapp_bot.py        # Phase 2
+│   │   ├── cli_chat.py                # ✅ CLI (all phases)
+│   │   ├── telegram_bot.py            # ✅ Telegram (Phase 2)
+│   │   ├── discord_bot.py            # 🔄 Discord (coming)
+│   │   └── whatsapp_bot.py           # ✅ WhatsApp (Phase 2)
 │   │
 │   └── models/
 │       ├── model_loader.py
