@@ -1,0 +1,17 @@
+[Unit]
+Description=Alasmia AI Companion - Telegram Bot
+After=network.target ollama.service
+Requires=ollama.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/alasmia
+ExecStart=/usr/bin/python3 alasmia-core/__main__.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/tmp/alasmia.log
+StandardError=append:/tmp/alasmia_error.log
+
+[Install]
+WantedBy=multi-user.target

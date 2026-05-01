@@ -26,3 +26,6 @@ venv/
 # OS
 .DS_Store
 *.swp
+
+# Runtime data (don't commit)
+data/
