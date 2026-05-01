@@ -18,7 +18,50 @@
 
 **Choose your companion:** 👨 **Alas** (Male energy) or 👩 **Mia** (Female energy)
 
+**🌐 SPEAK YOUR LANGUAGE** - Alasmia understands and responds in **15+ languages** automatically!
+
 > *"Not just another chatbot. A companion that grows with you."*
+
+---
+
+## 🌍 TRUE MULTILINGUAL - Speak Any Language!
+
+Alasmia is **truly multilingual** from day one. No language selection needed - just start chatting in your preferred language!
+
+### 🌐 Supported Languages (15+)
+| Language | Native Name | Status |
+|----------|-------------|--------|
+| English | English | ✅ Full |
+| Mandarin Chinese | 简体中文 | ✅ Full |
+| Spanish | Español | ✅ Full |
+| Arabic | العربية | ✅ Full |
+| Hindi | हिन्दी | ✅ Full |
+| Japanese | 日本語 | ✅ Full |
+| Korean | 한국어 | ✅ Full |
+| French | Français | ✅ Full |
+| German | Deutsch | ✅ Full |
+| Portuguese | Português | ✅ Full |
+| Russian | Русский | ✅ Full |
+| Vietnamese | Tiếng Việt | ✅ Full |
+| Thai | ไทย | ✅ Full |
+| Indonesian | Bahasa Indonesia | ✅ Full |
+| Turkish | Türkçe | ✅ Full |
+| Polish | Polski | ✅ Full |
+| Dutch | Nederlands | ✅ Full |
+| Swedish | Svenska | ✅ Full |
+| Italian | Italiano | ✅ Full |
+
+### 🎯 How It Works
+```
+You: 你好，我叫小明 (Hello, I'm Xiaoming)
+AI: 你好，小明！很高兴认识你！😊 今天怎么样？
+    (Hello, Xiaoming! Nice to meet you! How are you today?)
+    
+You: Bonjour! Je m'appelle Marie
+AI: Bonjour Marie! Ravie de vous rencontrer! Comment allez-vous? 😊
+```
+
+**Automatic Detection**: Alasmia detects your language instantly and responds in the same language. No setup, no configuration needed!
 
 ---
 
@@ -29,6 +72,7 @@
 - **Emotion Memory** - Remembers how you felt, not just what you said
 - **Tone Calibration** - Responds to match your energy
 - **Comfort/Celebration Modes** - Automatic emotional support
+- **🌐 Works in ALL languages**
 
 ### 👥 Choose Your Companion
 | Aspect | 👨 Alas (Male) | 👩 Mia (Female) |
@@ -36,6 +80,7 @@
 | Energy | Strong, supportive, protective | Warm, nurturing, empathetic |
 | Style | "I've got your back" | "I'm here for you" |
 | Response | Confident, empowering | Caring, understanding |
+| Language | All 15+ languages | All 15+ languages |
 
 ### 🌱 Relationship Growth
 | Stage | Messages | What Changes |
@@ -47,14 +92,16 @@
 | **Partner** | 500+ | Unbreakable bond |
 
 ### ⏰ Time-Based Intelligence
-- **Daily Greetings** - Morning ☀️, Afternoon, Evening 💫, Night 🌙
+- **Daily Greetings** - Morning ☀️, Afternoon, Evening 💫, Night 🌙 (in YOUR language)
 - **Weekly Check-ins** - Every Sunday with personalized summary
 - **Monthly Anniversaries** - Celebrates time together
 - **Milestone Tracker** - Tracks achievements (10, 50, 100, 500 messages...)
+- **🌐 All greetings adapt to your language automatically**
 
 ### 🧠 Memory System
 - **Conversation History** - Complete chat recall
 - **Preference Memory** - Remembers your likes/dislikes
+- **Language Preference** - Remembers your language forever
 - **Emotional Patterns** - Tracks mood over time
 - **Inside Jokes** - Builds shared humor
 - **Reminder System** - Keeps track of things to do
@@ -65,6 +112,7 @@
 - Connection score (0-100%)
 - Streak tracking
 - Milestone progress
+- **🌐 All reports in your language**
 
 ---
 
@@ -100,8 +148,11 @@ python main.py
 
 **Setup Flow:**
 1. Choose your companion: **Alas** or **Mia**
-2. Enter your name
-3. Start chatting in English (can switch later)
+2. Type in **ANY language** - Alasmia will detect and respond in your language!
+3. Tell your name
+4. Start chatting!
+
+**No language selection needed!** Just start talking in your preferred language.
 
 **Example Commands:**
 ```bash
@@ -113,7 +164,56 @@ python main.py --help            # Show help
 - `exit` - End conversation
 - `mood` - See mood analysis
 - `stats` - See your statistics
-- `change language` - Switch language
+- `change language` - Switch to a different language
+
+---
+
+## 🌐 Multilingual Examples
+
+### Chinese (普通话)
+```
+You: 你好！我是小明
+AI: 你好，小明！😊 很高兴认识你！今天过得怎么样？
+
+You: 我今天有点累
+AI: 啊，累了就好好休息吧，战士。明天会更好的。🌙
+```
+
+### Spanish (Español)
+```
+You: ¡Hola! Me llamo María
+AI: ¡Hola María! ¡Mucho gusto! 😊 ¿Cómo estás hoy?
+
+You: Estoy un poco triste
+AI: Oh, lo siento mucho... *te abrazo* Estoy aquí para ti. ¿Quieres contarme qué pasó? 💕
+```
+
+### Arabic (العربية)
+```
+You: مرحباً! أنا أحمد
+AI: مرحباً أحمد! تشرفت بمعرفتك! 😊 كيف حالك اليوم؟
+
+You: أنا حزين قليلاً
+AI: أنا آسف جداً... أنا هنا من أجلك. هل تريد أن تخبرني ما الذي حدث؟ 💕
+```
+
+### Japanese (日本語)
+```
+You: はじめまして！私は田中です
+AI: はじめまして、田中さん！😊 どうぞよろしく！今日はどうですか？
+
+You: 今日は少し疲れています
+AI: あ疲れ様。無理しないでね、勇者。休んで。明日は良い日になるよ。🌙
+```
+
+### Hindi (हिन्दी)
+```
+You: नमस्ते! मैं राज हूं
+AI: नमस्ते राज! आपसे मिलकर अच्छा लगा! 😊 आज कैसे हो?
+
+You: आज थोड़ा устала हूं
+AI: आह, थक तो गए हो। आराम करो योद्धा। 내일은 बेहतर होगा। 🌙
+```
 
 ---
 
@@ -122,7 +222,6 @@ python main.py --help            # Show help
 ```
 Alasmia/
 ├── main.py                    # Entry point
-├── setup_flow.py             # Companion selection
 ├── requirements.txt           # Dependencies
 │
 ├── alasmia/
@@ -133,13 +232,12 @@ Alasmia/
 │   │   ├── mood_handler.py   # Mood detection
 │   │   ├── emotion_tracker.py # Emotional memory
 │   │   ├── milestone.py       # Achievement tracking
-│   │   ├── alas_prompts.py   # Male companion
-│   │   └── mia_prompts.py    # Female companion
+│   │   ├── alas_prompts.py   # 👨 Male companion (Multilingual)
+│   │   └── mia_prompts.py    # 👩 Female companion (Multilingual)
 │   │
 │   ├── core/
-│   │   ├── setup_flow.py     # Initial setup
-│   │   ├── state_manager.py  # Session state
-│   │   ├── scheduler.py      # Time-based tasks
+│   │   ├── state_manager.py  # Session state + language tracking
+│   │   ├── scheduler.py      # 🌐 Multilingual time-based tasks
 │   │   └── analytics.py      # Weekly reports
 │   │
 │   ├── models/
@@ -147,9 +245,10 @@ Alasmia/
 │   │   └── providers.py       # Ollama/OpenAI/Anthropic
 │   │
 │   └── integrations/
-│       └── cli_chat.py       # CLI interface
+│       └── cli_chat.py       # 🌐 Multilingual CLI interface
 │
 ├── tests/                    # Unit tests
+├── AGENTS.md                 # 🤍 Agent behavior spec (Multilingual docs)
 └── docs/                     # Documentation
 ```
 
@@ -157,43 +256,49 @@ Alasmia/
 
 ## 🧠 How It Works
 
-### Setup Flow
+### Multilingual Setup Flow
 ```
 User runs main.py
     ↓
 Choose companion (Alas/Mia)
     ↓
-Enter name
+User types first message in ANY language
     ↓
-Start conversation (English first)
+🌐 Language auto-detected (e.g., Mandarin Chinese)
+    ↓
+AI responds in SAME language (Mandarin Chinese)
+    ↓
+User enters their name
+    ↓
+Language saved forever - never asked again
 ```
 
-### Chat Flow
+### Multilingual Chat Flow
 ```
-Your message
+Your message (in ANY language)
     ↓
-Mood detection (happy/sad/angry/etc)
+🌐 Language detected automatically
+    ↓
+Mood detection (in your language)
     ↓
 Load conversation history + preferences
     ↓
-Generate response (companion-specific style)
+Generate response (in YOUR language, companion style)
     ↓
-Save to memory
+Save to memory (including language)
     ↓
-Check milestones / stage progression
-    ↓
-Response
+Response in your language
 ```
 
-### Time-Based Features
+### Time-Based Features (Multilingual)
 ```
 Scheduler checks time
     ↓
-If greeting time → Send time-appropriate greeting
-If Sunday → Send weekly check-in
-If monthly anniversary → Celebrate
+Greeting prepared
     ↓
-All automatic, no setup needed
+🌐 Greeting translated to YOUR language
+    ↓
+Daily/Weekly/Monthly messages all in your language
 ```
 
 ---
@@ -208,10 +313,11 @@ OLLAMA_URL=http://localhost:11434
 ```
 
 ### Changing Language
-Type `change language` in chat to switch between:
-- English
-- Hindi
-- Hinglish
+Simply type in a different language! Or use:
+```
+change language
+```
+Then enter any language name (e.g., "Japanese", "العربية", "普通话", "Español")
 
 ---
 

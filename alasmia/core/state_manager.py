@@ -9,7 +9,8 @@ from datetime import datetime
 
 class StateManager:
     """
-    Manages user session state, current context, and active modes.
+    Manages user session state, current context, active modes,
+    and user preferences including language.
     """
     
     def __init__(self, user_id: str = "default"):
@@ -25,6 +26,10 @@ class StateManager:
             "context_stack": [],  # Recent conversation context
             "pending_language_switch": None,
             "session_start": datetime.utcnow().isoformat(),
+            # LANGUAGE SETTINGS
+            "user_language": None,  # e.g., "English", "Mandarin Chinese", "Hindi", "Arabic"
+            "language_confirmed": False,  # True once user confirms their language
+            "first_interaction": True,  # For initial language setup
         }
     
     def set_mode(self, mode: str):
@@ -46,6 +51,20 @@ class StateManager:
             self.set_mode("comfort")
         elif mood in ["happy", "excited", "celebrating"]:
             self.set_mode("celebration")
+    
+    def set_language(self, language: str):
+        """Set user's preferred language."""
+        self.state["user_language"] = language
+        self.state["language_confirmed"] = True
+        self.state["first_interaction"] = False
+    
+    def get_language(self) -> Optional[str]:
+        """Get user's preferred language."""
+        return self.state.get("user_language")
+    
+    def is_language_confirmed(self) -> bool:
+        """Check if user's language preference is confirmed."""
+        return self.state.get("language_confirmed", False)
     
     def push_context(self, context: str):
         """Add to conversation context stack."""
@@ -83,3 +102,28 @@ class StateManager:
     def get(self, key: str, default: Any = None) -> Any:
         """Get a specific state value."""
         return self.state.get(key, default)
+    
+    def to_dict(self) -> Dict:
+        """Export state as dictionary for memory storage."""
+        return {
+            "user_id": self.user_id,
+            "user_language": self.state.get("user_language"),
+            "language_confirmed": self.state.get("language_confirmed", False),
+            "current_mode": self.state.get("current_mode", "normal"),
+            "conversation_depth": self.state.get("conversation_depth", 0),
+            "last_mood": self.state.get("last_mood"),
+            "session_start": self.state.get("session_start"),
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict, user_id: str = "default") -> "StateManager":
+        """Create StateManager from stored data (e.g., from memory)."""
+        manager = cls(user_id)
+        manager.state["user_language"] = data.get("user_language")
+        manager.state["language_confirmed"] = data.get("language_confirmed", False)
+        manager.state["current_mode"] = data.get("current_mode", "normal")
+        manager.state["conversation_depth"] = data.get("conversation_depth", 0)
+        manager.state["last_mood"] = data.get("last_mood")
+        manager.state["session_start"] = data.get("session_start")
+        manager.state["first_interaction"] = False
+        return manager

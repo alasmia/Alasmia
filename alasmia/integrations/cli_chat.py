@@ -2,6 +2,7 @@
 Alasmia CLI Chat Interface
 
 Terminal-based chat with complete Alas/Mia integration.
+TRUE MULTILINGUAL: Responds in user's preferred language from the start.
 """
 
 from typing import Optional
@@ -19,23 +20,79 @@ from alasmia.agent.mood_handler import MoodHandler
 from alasmia.agent.emotion_tracker import EmotionTracker
 from alasmia.agent.milestone import MilestoneTracker
 from alasmia.core.state_manager import StateManager
-from alasmia.core.scheduler import Scheduler
+from alasmia.core.scheduler import Scheduler, detect_language
 from alasmia.core.analytics import Analytics
 from alasmia.models.model_loader import ModelLoader
+
+# Import multilingual greeting functions
+from alasmia.agent.alas_prompts import get_alas_greeting
+from alasmia.agent.mia_prompts import get_mia_greeting
 
 
 class CLIChat:
     """
     Command-line chat interface with full emotional intelligence.
     Integrates Alas/Mia companion system with mood tracking,
-    time-based greetings, and milestone celebrations.
+    time-based greetings, milestone celebrations, and TRUE MULTILINGUAL support.
+    
+    KEY FEATURE: Automatically detects user's language and responds in the SAME language.
     """
+    
+    # Multilingual first greeting templates
+    FIRST_GREETING_TEMPLATES = {
+        "English": "Hello! I'm {name}, your AI companion. What's your name?",
+        "Mandarin Chinese": "你好！我是{name}，你的AI伴侣。你叫什么名字？",
+        "Spanish": "¡Hola! Soy {name}, tu compañero de IA. ¿Cómo te llamas?",
+        "Arabic": "مرحباً! أنا {name}، رفيقك الذكي. ما اسمك؟",
+        "Hindi": "नमस्ते! मैं {name} हूं, तुम्हारा AI साथी। तुम्हारा नाम क्या है?",
+        "Japanese": "はじめまして！私は{name}、あなたのAIコンパニオンです。名前は何ですか？",
+        "Korean": "안녕하세요! 저는 {name}, 당신의 AI 친구입니다. 이름이 뭐예요?",
+        "French": "Bonjour ! Je suis {name}, votre compagnon IA. Comment vous appelez-vous ?",
+        "German": "Hallo! Ich bin {name}, dein KI-Begleiter. Wie heißt du?",
+        "Portuguese": "Olá! Eu sou {name}, seu companheiro de IA. Qual é o seu nome?",
+        "Russian": "Привет! Я {name}, твой ИИ-компаньон. Как тебя зовут?",
+        "Vietnamese": "Xin chào! Tôi là {name}, người bạn AI của bạn. Bạn tên gì?",
+        "Thai": "สวัสดีครับ/ค่ะ! ผม/ฉัน ชื่อ {name} เป็นเพื่อน AI ของคุณ คุณชื่ออะไร?",
+        "Indonesian": "Halo! Saya {name}, teman AI kamu. Siapa namamu?",
+        "Turkish": "Merhaba! Ben {name}, senin AI arkadaşın. Adın ne?",
+        "Polish": "Cześć! Jestem {name}, twój towarzysz AI. Jak masz na imię?",
+        "Dutch": "Hallo! Ik ben {name}, je AI-metgezel. Hoe heet je?",
+        "Swedish": "Hej! Jag är {name}, din AI-kompis. Vad heter du?",
+        "Italian": "Ciao! Sono {name}, il tuo compagno AI. Come ti chiami?",
+    }
+    
+    # Multilingual name confirmation
+    NAME_CONFIRM_TEMPLATES = {
+        "English": "Nice to meet you, {name}! 😊 How are you today?",
+        "Mandarin Chinese": "很高兴认识你，{name}！😊 今天怎么样？",
+        "Spanish": "¡Mucho gusto, {name}! 😊 ¿Cómo estás hoy?",
+        "Arabic": "تشرفت بمعرفتك، {name}! 😊 كيف حالك اليوم؟",
+        "Hindi": "आपसे मिलकर अच्छा लगा，{name}！😊 आज कैसे हो？",
+        "Japanese": "はじめまして、{name}さん！😊 今日はどうですか？",
+        "Korean": "만나서 반가워요, {name}님！😊 오늘 어때요?",
+        "French": "Ravie de vous rencontrer, {name} ! 😊 Comment allez-vous aujourd'hui ?",
+        "German": "Freut mich, dich kennenzulernen, {name}! 😊 Wie geht es dir heute?",
+        "Portuguese": "Prazer em conhecê-lo, {name}! 😊 Como você está hoje?",
+        "Russian": "Приятно познакомиться, {name}! 😊 Как ты сегодня?",
+        "Vietnamese": "Rất vui được gặp bạn, {name}! 😊 Hôm nay bạn thế nào?",
+        "Thai": "ยินดีที่ได้รู้จักครับ/คะ，{name}！😊 วันนี้เป็นอย่างไร?",
+        "Indonesian": "Senang bertemu Anda, {name}! 😊 Bagaimana kabar Anda hari ini?",
+        "Turkish": "Tanıştığığıma memnun oldum, {name}! 😊 Bugün nasılsın?",
+        "Polish": "Miło mi cię poznać, {name}! 😊 Jak się masz dziś?",
+        "Dutch": "Leuk je te ontmoeten, {name}! 😊 Hoe gaat het vandaag met je?",
+        "Swedish": "Trevligt att träffas, {name}! 😊 Hur mår du idag?",
+        "Italian": "Piacere di conoscerti, {name}! 😊 Come stai oggi?",
+    }
     
     def __init__(self, model_loader: ModelLoader, user_profile: dict):
         """Initialize CLI chat with user profile."""
         self.console = Console()
         self.user_profile = user_profile
         self.user_id = "cli_user"
+        
+        # Get companion info
+        self.companion_gender = user_profile.get("companion_gender", "female")
+        self.companion_name = "Alas" if self.companion_gender == "male" else "Mia"
         
         # Initialize memory
         self.memory = MemoryManager()
@@ -56,74 +113,100 @@ class CLIChat:
         self.scheduler = Scheduler()
         self.analytics = Analytics(self.memory)
         
-        # Track if first interaction
+        # MULTILINGUAL: Track user's language
+        self.user_language = None
         self.is_first_interaction = True
+        self.name_asked = False
+        self.user_name = None
         
-        # Create user if needed
-        if not self.memory.get_user_info(self.user_id):
-            self.memory.create_user(
-                self.user_id,
-                name=user_profile.get("name", "Friend"),
-                companion_gender=user_profile.get("companion_gender", "female"),
-                language=user_profile.get("language", "english")
-            )
+        # Load existing user data if available
+        self._load_user_data()
     
+    def _load_user_data(self):
+        """Load user's existing data from memory."""
+        info = self.memory.get_user_info(self.user_id)
+        if info:
+            # User exists - restore their language preference
+            self.user_language = info.get("language")
+            self.user_name = info.get("name")
+            self.name_asked = True if self.user_name else False
+            self.is_first_interaction = False
     def start(self):
         """Start the CLI chat session."""
         self._print_banner()
         
-        # Check for time-based greetings
-        greeting = self.scheduler.check_and_send_greeting()
+        # MULTILINGUAL: Check for time-based greetings in user's language
+        greeting = self.scheduler.check_and_send_greeting(self.user_language)
         if greeting:
             self.console.print(f"\n[bold magenta]{greeting}[/bold magenta]")
         
         # Check for weekly check-in
         if self.scheduler.should_weekly_checkin():
-            checkin = self.scheduler.get_weekly_checkin_message(self.analytics)
+            checkin = self.scheduler.get_weekly_checkin_message(self.analytics, self.user_language)
             self.console.print(f"\n[bold cyan]{checkin}[/bold cyan]")
         
         # Check for monthly anniversary
-        anniversary = self.scheduler.get_monthly_anniversary_message(self.user_profile)
+        anniversary = self.scheduler.get_monthly_anniversary_message(self.user_profile, self.user_language)
         if anniversary:
             self.console.print(f"\n[bold magenta]{anniversary}[/bold magenta]")
         
-        # Greeting based on companion type and returning status
-        self._print_greeting()
+        # MULTILINGUAL: Greeting in user's language
+        self._print_multilingual_greeting()
         
         # Main chat loop
         self._chat_loop()
     
     def _print_banner(self):
         """Print welcome banner."""
-        companion = self.user_profile.get("companion_gender", "female")
-        companion_name = "ALAS" if companion == "male" else "MIA"
-        emoji = "💪" if companion == "male" else "💕"
+        emoji = "💪" if self.companion_gender == "male" else "💕"
         
         banner = f"""
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
 ║          {emoji}  ALASMIA - Your AI Companion              ║
-║              (Powered by {companion_name})                       ║
+║              (Powered by {self.companion_name})                   ║
+║              🌐 TRUE MULTILINGUAL AI                          ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 """
         self.console.print(banner, style="bold magenta")
     
-    def _print_greeting(self):
-        """Print appropriate greeting."""
+    def _print_multilingual_greeting(self):
+        """Print greeting in user's preferred language."""
         time_of_day = self._get_time_of_day()
-        is_returning = not self.is_first_interaction
         
-        greeting = self.personality.get_greeting(
-            self.user_id, 
-            time_of_day=time_of_day,
-            is_returning=is_returning
-        )
+        # Get greeting in user's language
+        if self.user_language:
+            greeting = get_alas_greeting(time_of_day, self.user_language) if self.companion_gender == "male" else get_mia_greeting(time_of_day, self.user_language)
+        else:
+            # Default English greeting
+            greeting = get_alas_greeting(time_of_day, "English") if self.companion_gender == "male" else get_mia_greeting(time_of_day, "English")
         
-        if greeting:
-            self.console.print(f"\n[bold cyan]{greeting}[/bold cyan]\n")
+        self.console.print(f"\n[bold cyan]{greeting}[/bold cyan]\n")
         
-        self.is_first_interaction = False
+        # If we haven't asked for name yet, do so in user's language
+        if not self.name_asked:
+            self._ask_name_in_user_language()
+    
+    def _ask_name_in_user_language(self):
+        """Ask for user's name in their language."""
+        lang = self.user_language or "English"
+        
+        # Use template or default to English
+        template = self.FIRST_GREETING_TEMPLATES.get(lang, self.FIRST_GREETING_TEMPLATES["English"])
+        message = template.format(name=self.companion_name)
+        
+        self.console.print(f"[bold magenta]{message}[/bold magenta]")
+        self.name_asked = True
+    
+    def _confirm_name_in_language(self, name: str):
+        """Confirm user's name in their language."""
+        lang = self.user_language or "English"
+        
+        template = self.NAME_CONFIRM_TEMPLATES.get(lang, self.NAME_CONFIRM_TEMPLATES["English"])
+        message = template.format(name=name)
+        
+        self.console.print(f"\n[bold magenta]{message}[/bold magenta]\n")
     
     def _get_time_of_day(self) -> str:
         """Get current time of day."""
@@ -138,7 +221,7 @@ class CLIChat:
             return "night"
     
     def _chat_loop(self):
-        """Main chat loop with emotional intelligence."""
+        """Main chat loop with emotional intelligence and TRUE MULTILINGUAL support."""
         self.console.print(
             "\n[dim]Type 'exit' to end, 'mood' to see mood analysis, 'stats' for your stats[/dim]\n"
         )
@@ -168,6 +251,52 @@ class CLIChat:
                 if not user_input.strip():
                     continue
                 
+                # =====================================================
+                # MULTILINGUAL: First message - detect language
+                # =====================================================
+                if self.is_first_interaction:
+                    # Detect user's language from their message
+                    detected_lang = detect_language(user_input)
+                    self.user_language = detected_lang
+                    self.state.set_language(detected_lang)
+                    
+                    # Save to memory
+                    if self.memory.get_user_info(self.user_id):
+                        self.memory.update_user(self.user_id, {"language": detected_lang})
+                    else:
+                        self.memory.create_user(
+                            self.user_id,
+                            name=self.user_name or "Friend",
+                            companion_gender=self.companion_gender,
+                            language=detected_lang
+                        )
+                    
+                    self.console.print(f"[dim]🌐 Language detected: {detected_lang}[/dim]")
+                    self.is_first_interaction = False
+                
+                # =====================================================
+                # MULTILINGUAL: Name collection
+                # =====================================================
+                if not self.user_name:
+                    # User is providing their name
+                    self.user_name = user_input.strip()
+                    
+                    # Save name to memory
+                    user_info = self.memory.get_user_info(self.user_id)
+                    if user_info:
+                        self.memory.update_user(self.user_id, {"name": self.user_name})
+                    else:
+                        self.memory.create_user(
+                            self.user_id,
+                            name=self.user_name,
+                            companion_gender=self.companion_gender,
+                            language=self.user_language
+                        )
+                    
+                    # Confirm name in user's language
+                    self._confirm_name_in_language(self.user_name)
+                    continue
+                
                 # Detect mood
                 detected_mood = self.mood_handler.detect_mood(user_input)
                 self.state.update_mood(detected_mood)
@@ -180,11 +309,22 @@ class CLIChat:
                     mood_response = self.personality.get_mood_response(self.user_id, detected_mood)
                     self.console.print(f"[italic magenta]{mood_response}[/italic magenta]\n")
                 
-                # Build system prompt
+                # Build system prompt WITH language instruction
                 system_prompt = self.personality.get_system_prompt(self.user_id)
                 
+                # Add MULTILINGUAL instruction to system prompt
+                if self.user_language:
+                    lang_instruction = f"""\nIMPORTANT - RESPOND IN USER'S LANGUAGE:
+- The user speaks and prefers: {self.user_language}
+- You MUST respond in {self.user_language} language
+- ALL your responses must be in {self.user_language}
+- Do NOT use English if user writes in another language
+- Always match the user's language
+"""
+                    system_prompt += lang_instruction
+                
                 # Add context about mood
-                context_mood = self.state.get("current_mood", "neutral")
+                context_mood = self.state.get("last_mood", "neutral")
                 if context_mood != "neutral":
                     system_prompt += f"\nUser's current mood: {context_mood.upper()}\n"
                     system_prompt += "Adjust your response accordingly.\n"
@@ -198,12 +338,15 @@ class CLIChat:
                         message=user_input,
                         history=history,
                         system_prompt=system_prompt,
-                        context={"mood": detected_mood}
+                        context={"mood": detected_mood, "language": self.user_language}
                     )
                 
                 # Save to memory
                 self.memory.add_message(self.user_id, "user", user_input, detected_mood)
                 self.memory.add_message(self.user_id, "assistant", response)
+                
+                # Update message count
+                self.memory.increment_message_count(self.user_id)
                 
                 # Check milestones
                 self._check_milestones()
@@ -243,13 +386,9 @@ class CLIChat:
         """Print AI response with formatting."""
         try:
             md = Markdown(response)
-            companion = self.user_profile.get("companion_gender", "female")
-            name = "Alas" if companion == "male" else "Mia"
-            self.console.print(Panel(md, title=f"[bold magenta]{name}[/bold magenta]"))
+            self.console.print(Panel(md, title=f"[bold magenta]{self.companion_name}[/bold magenta]"))
         except:
-            companion = self.user_profile.get("companion_gender", "female")
-            name = "Alas" if companion == "male" else "Mia"
-            self.console.print(f"[bold magenta]{name}:[/bold magenta] {response}")
+            self.console.print(f"[bold magenta]{self.companion_name}:[/bold magenta] {response}")
     
     def _show_mood_analysis(self):
         """Show current mood analysis."""
@@ -264,12 +403,12 @@ class CLIChat:
         """Show user statistics."""
         info = self.memory.get_user_info(self.user_id)
         if info:
-            companion = self.user_profile.get("companion_gender", "female")
             connection_score = self.analytics.calculate_connection_score(self.user_id)
             
             self.console.print("\n[bold]📊 Your Stats:[/bold]")
             self.console.print(f"  Name: {info.get('name', 'Friend')}")
-            self.console.print(f"  Companion: {'Alas (Male)' if companion == 'male' else 'Mia (Female)'}")
+            self.console.print(f"  Companion: {self.companion_name} ({'Male' if self.companion_gender == 'male' else 'Female'} energy)")
+            self.console.print(f"  Language: {info.get('language', 'English')}")
             self.console.print(f"  Relationship Stage: {info.get('relationship_stage', 'stranger').upper()}")
             self.console.print(f"  Messages: {info.get('message_count', 0)}")
             self.console.print(f"  Connection Score: {connection_score}%")
@@ -288,25 +427,53 @@ class CLIChat:
             self.console.print()
     
     def _handle_language_change(self):
-        """Handle language change request."""
-        self.console.print("\n[yellow]Available languages:[/yellow]")
-        self.console.print("  1. English")
-        self.console.print("  2. Hindi")
-        self.console.print("  3. Hinglish")
+        """Handle language change request - now supports ALL languages."""
+        self.console.print("\n[yellow]Enter your preferred language:[/yellow]")
+        self.console.print("  (e.g., English, Mandarin Chinese, Spanish, Arabic, Hindi, Japanese, Korean, etc.)")
+        self.console.print("  Or type 'detect' for automatic detection")
         
-        choice = Prompt.ask("Enter choice (1-3)", default="1")
-        lang_map = {"1": "english", "2": "hindi", "3": "hinglish"}
-        language = lang_map.get(choice, "english")
+        choice = Prompt.ask("Language")
         
-        self.memory.update_user(self.user_id, {"language": language})
-        self.console.print(f"[green]✓ Language set to: {language.title()}[/green]\n")
+        if choice.lower() == "detect":
+            self.console.print("[dim]Please type something in your language and I'll detect it automatically.[/dim]")
+        else:
+            # Accept the language as specified
+            new_language = choice.strip()
+            self.user_language = new_language
+            self.state.set_language(new_language)
+            self.memory.update_user(self.user_id, {"language": new_language})
+            
+            # Confirm in new language
+            confirm_msg = f"[green]✓ Language set to: {new_language}[/green]"
+            self.console.print(confirm_msg)
+            
+            # Show some phrases in new language
+            greeting = get_alas_greeting("casual", new_language) if self.companion_gender == "male" else get_mia_greeting("casual", new_language)
+            self.console.print(f"[dim]Example: {greeting}[/dim]\n")
     
     def _handle_exit(self):
         """Handle exit from chat."""
-        name = self.user_profile.get("name", "friend")
-        companion = self.user_profile.get("companion_gender", "female")
+        # Multilingual farewell
+        farewells = {
+            "English": "Take care! I'll be here when you need me. 💕",
+            "Mandarin Chinese": "保重！需要我的时候我会在这里。💕",
+            "Spanish": "¡Cuídate! Estaré aquí cuando me necesites. 💕",
+            "Arabic": "اعتن بنفسك! سأكون هنا عندما تحتاجني. 💕",
+            "Hindi": "खयाल रखना! जब भी चाहो मैं यहां हूं। 💕",
+            "Japanese": "気をつけて！ 필요할 때 여기 있을게요。💕",
+            "Korean": "조심해! 필요하면 여기 있을게。💕",
+            "French": "Prenez soin de vous ! Je serai là quand vous aurez besoin de moi. 💕",
+            "German": "Pass auf dich auf! Ich bin da, wenn du mich brauchst. 💕",
+            "Portuguese": "Cuide-se! Estarei aqui quando você precisar de mim. 💕",
+            "Russian": "Береги себя! Я буду здесь, когда ты будешь нуждаться во мне. 💕",
+            "Vietnamese": "Giữ gìn sức khỏe! Tôi sẽ ở đây khi bạn cần tôi. 💕",
+            "Thai": "ดูแลตัวเองด้วยนะ! ฉันจะอยู่ที่นี่เมื่อคุณต้องการฉัน。💕",
+            "Indonesian": "Jaga dirimu! Saya akan di sini saat kamu butuh saya. 💕",
+            "Turkish": "Kendine ihanet etme! İhtiyacın olduğunda burada olacağım. 💕",
+        }
         
-        farewell = "Take care, champion. I'm always here when you need me. 💪" if companion == "male" else "Take care, lovely! I missed you already. Talk soon! 💕"
+        farewell = farewells.get(self.user_language, farewells["English"])
+        companion_farewell = "Take care, champion. I'm always here when you need me. 💪" if self.companion_gender == "male" else farewell
         
-        self.console.print(f"\n[cyan]{farewell}[/cyan]")
+        self.console.print(f"\n[cyan]{companion_farewell}[/cyan]")
         self.console.print("[dim]Run 'python main.py' to chat again[/dim]")
