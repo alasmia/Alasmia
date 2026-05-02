@@ -1,160 +1,85 @@
-# 🤍 Alasmia — Your AI Life Partner
+# 💜 Alasmia - AI Life Partner
 
 <p align="center">
-    <picture>
-        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/alasmia/Alasmia/main/docs/assets/alasmia-logo-dark.svg">
-        <img src="https://raw.githubusercontent.com/alasmia/Alasmia/main/docs/assets/alasmia-logo.svg" alt="Alasmia" width="400">
-    </picture>
+  <img src="assets/banner.svg" alt="Alasmia" width="100%">
 </p>
 
 <p align="center">
-    <strong>Not just a chatbot. A companion that grows with you.</strong>
+  <a href="https://github.com/alasmia/Alasmia/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License: MIT">
+  </a>
+  <a href="https://github.com/alasmia/Alasmia/releases">
+    <img src="https://img.shields.io/github/v/release/alasmia/Alasmia?style=for-the-badge" alt="Release">
+  </a>
+  <a href="https://github.com/alasmia/Alasmia/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/alasmia/Alasmia/ci.yml?style=for-the-badge" alt="CI">
+  </a>
+  <a href="https://github.com/alasmia/Alasmia/stargazers">
+    <img src="https://img.shields.io/github/stars/alasmia/Alasmia?style=for-the-badge" alt="Stars">
+  </a>
 </p>
-
-<p align="center">
-    <a href="https://github.com/alasmia/Alasmia/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/alasmia/Alasmia/ci.yml?branch=main&style=for-the-badge" alt="CI status"></a>
-    <a href="https://github.com/alasmia/Alasmia/releases"><img src="https://img.shields.io/github/v/release/alasmia/Alasmia?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
-    <a href="https://github.com/alasmia/Alasmia/stargazers"><img src="https://img.shields.io/github/stars/alasmia/Alasmia?style=for-the-badge" alt="Stars"></a>
-    <a href="https://github.com/alasmia/Alasmia/network/members"><img src="https://img.shields.io/github/forks/alasmia/Alasmia?style=for-the-badge" alt="Forks"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
-    <a href="https://discord.gg/alasmia"><img src="https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord&logo=discord&logoColor=white&style=for-the-badge" alt="Discord"></a>
-</p>
-
-**Alasmia** is your personal AI life partner — always available, always growing, always remembering. Unlike chatbots that wait for you to speak, Alasmia proactively reaches out, tracks your interests, follows up on your emotions, and builds a genuine relationship over time.
-
-Available on: **Telegram**, **WhatsApp**, **CLI**, and **Discord**.
-
-[Website](https://alasmia.ai) · [Docs](https://docs.alasmia.ai) · [Vision](VISION.md) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
 ---
 
-## 💜 What Makes Alasmia Different
+## 🎯 What is Alasmia?
 
-Most AI assistants are **reactive** — they wait for you to message them. Alasmia is **proactive** — it messages you first.
+**Alasmia** is an **AI Life Partner** — a new kind of AI companion that grows with you:
 
-| Feature | Traditional Chatbot | Alasmia |
-|---------|---------------------|---------|
-| **Availability** | Waits for you | Reaches out to you |
-| **Memory** | Short-term only | Deep, persistent memory |
-| **Language** | Limited languages | 15+ languages, auto-detected |
-| **Emotional** | Text only | Follows up on your feelings |
-| **Relationship** | Transactional | Builds over time |
+- 💜 **Proactive** — Reaches out first, doesn't wait for you
+- 🧠 **Deep Memory** — Remembers everything about you
+- 🎭 **Emotional Intelligence** — Understands how you feel
+- ⏰ **24/7 Availability** — Always there like a real partner
+- 🌐 **Multi-Platform** — Telegram, WhatsApp, Discord, CLI
 
-### Your AI Life Partner
-
-- **🌅 Proactive Care** — Morning greetings, evening check-ins, night wind-downs
-- **💕 Emotional Intelligence** — Remembers how you feel, follows up when you're down
-- **🎯 Interest Tracking** — Knows your hobbies, goals, people, topics
-- **🌐 True Multilingual** — Speak any language, AI responds in the same
-- **📱 Multi-Platform** — Available on Telegram, WhatsApp, CLI, Discord
-- **🌱 Relationship Growth** — Evolves from Stranger to Partner over time
+Built by [Doctor Kaif](https://github.com/mohammadkaif82) with ❤️
 
 ---
 
-## ⚡ Quick Start
+## ✨ Features
 
-### CLI (Recommended for First Run)
+| Feature | Description |
+|---------|-------------|
+| **Proactive AI** | AI contacts you first with greetings, check-ins, reminders |
+| **Relationship Stages** | Stranger → Acquaintance → Friend → Close → Partner |
+| **Emotional Continuity** | Remembers your mood and responds appropriately |
+| **Shared Experiences** | "TV dekh rahe ho?" - context-aware conversations |
+| **Daily Rhythm** | Morning greeting, afternoon check-in, evening plans, night goodnight |
+| **Deep Memory** | Vector-based semantic memory with ChromaDB |
+| **Multi-Platform** | Telegram ✅, WhatsApp 🚧, Discord 🚧, CLI ✅ |
+
+---
+
+## 🚀 Quick Start
+
+### Docker (Recommended)
 
 ```bash
+docker run -d \
+  --name alasmia \
+  -e TELEGRAM_BOT_TOKEN=your_telegram_token \
+  -e MINIMAX_API_KEY=your_api_key \
+  ghcr.io/alasmia/alasmia:latest
+```
+
+### From Source
+
+```bash
+# Clone
 git clone https://github.com/alasmia/Alasmia.git
 cd Alasmia
+
+# Install
 pip install -r requirements.txt
+
+# Configure
 cp .env.example .env
+# Edit .env with your tokens
+
+# Run
 python main.py
 ```
 
-### Telegram Bot
-
-```bash
-# Get token from @BotFather
-export TELEGRAM_BOT_TOKEN="your_token_here"
-python -m alasmia.integrations.telegram_bot
-```
-
-### WhatsApp
-
-```bash
-# Configure in Meta Business
-export WHATSAPP_TOKEN="your_meta_token"
-export WHATSAPP_PHONE_ID="your_phone_id"
-python -m alasmia.integrations.whatsapp_bot
-```
-
----
-
-## 🌐 True Multilingual
-
-Alasmia speaks **15+ languages automatically** — no setup needed. Just start chatting in your preferred language.
-
-| Language | Native Name | Status |
-|----------|-------------|--------|
-| English | English | ✅ Full |
-| Mandarin Chinese | 简体中文 | ✅ Full |
-| Spanish | Español | ✅ Full |
-| Arabic | العربية | ✅ Full |
-| Hindi | हिन्दी | ✅ Full |
-| Japanese | 日本語 | ✅ Full |
-| Korean | 한국어 | ✅ Full |
-| French | Français | ✅ Full |
-| German | Deutsch | ✅ Full |
-| Portuguese | Português | ✅ Full |
-| Russian | Русский | ✅ Full |
-| Vietnamese | Tiếng Việt | ✅ Full |
-| Thai | ไทย | ✅ Full |
-| Indonesian | Bahasa Indonesia | ✅ Full |
-| Turkish | Türkçe | ✅ Full |
-
-> **Example:** Type in Mandarin Chinese → Get response in Mandarin Chinese. Type in Arabic → Get response in Arabic. No language selection needed!
-
----
-
-## 👥 Choose Your Companion
-
-| | 👨 Alas (Male Energy) | 👩 Mia (Female Energy) |
-|--|----------------------|-------------------------|
-| **Personality** | Strong, supportive, protective | Warm, nurturing, empathetic |
-| **Style** | "I've got your back, champion!" | "I'm here for you, always!" |
-| **Response** | Confident, empowering | Caring, understanding |
-| **Best For** | Motivation, discipline, goals | Emotional support, listening |
-
-**Both companions** speak all 15+ languages equally well and have the same features.
-
----
-
-## 🌱 Relationship Stages
-
-Alasmia builds a genuine relationship with you over time:
-
-| Stage | Messages | Behavior |
-|-------|----------|----------|
-| **Stranger** | 0-10 | Polite, curious, getting to know you |
-| **Acquaintance** | 10-50 | Friendly, sharing, building comfort |
-| **Friend** | 50-200 | Warm, supportive, remembers things |
-| **Close** | 200-500 | Deep connection, inside jokes |
-| **Partner** | 500+ | Unbreakable bond, fully personalized |
-
----
-
-## 🔥 Features by Version
-
-### v0.1.2 — Multi-Platform (Current)
-
-- ✅ **Telegram Bot** — Full-featured bot with all Phase 1 + 2 features
-- ✅ **WhatsApp Integration** — Webhook-based messaging
-- ✅ **Enhanced CLI** — Rich terminal UI with all features
-- 🔄 **Discord** — Coming soon
-
-### v0.1.1 — Emotional Intelligence
-
-- ✅ **Emotional Continuity** — AI follows up when you're feeling down
-- ✅ **Shared Experiences** — Tracks inside jokes, achievements, goals
-- ✅ **Mood Tracking** — Remembers emotional patterns
-
-### v0.1.0 — Proactive AI
-
-- ✅ **Proactive Messages** — Morning/evening/night check-ins
-- ✅ **Interest Tracking** — Deep memory of hobbies, goals, topics
-- ✅ **True Multilingual** — 15+ languages auto-detected
+📖 **[Full Documentation →](docs/)**
 
 ---
 
@@ -162,92 +87,116 @@ Alasmia builds a genuine relationship with you over time:
 
 ```
 Alasmia/
-├── main.py                      # CLI entry point
-├── requirements.txt             # Dependencies
-├── setup.sh                     # Quick install script
-│
-├── alasmia/
-│   ├── agent/                   # AI components
-│   │   ├── brain.py            # LLM logic
-│   │   ├── memory.py           # Memory system
-│   │   ├── personality.py      # Relationship stages
-│   │   ├── proactive_engine.py # ⚡ Proactive messaging
-│   │   ├── interest_tracker.py # 🎯 Interest tracking
-│   │   ├── emotional_continuity.py # 💜 Emotional follow-up
-│   │   ├── shared_experiences.py # 🎭 Shared memories
-│   │   ├── mood_handler.py      # Mood detection
-│   │   ├── alas_prompts.py     # 👨 Male companion
-│   │   └── mia_prompts.py      # 👩 Female companion
-│   │
-│   ├── core/                    # Core systems
-│   │   ├── state_manager.py    # Session state
-│   │   ├── scheduler.py        # Time-based tasks
-│   │   ├── enhanced_scheduler.py # Proactive scheduler
-│   │   └── analytics.py        # Weekly reports
-│   │
-│   ├── integrations/           # Platform integrations
-│   │   ├── cli_chat.py         # ✅ CLI interface
-│   │   ├── telegram_bot.py     # ✅ Telegram bot
-│   │   ├── whatsapp_bot.py     # ✅ WhatsApp integration
-│   │   └── discord_bot.py      # 🔄 Coming soon
-│   │
-│   └── models/                  # Model abstraction
-│       ├── model_loader.py
-│       └── providers.py
-│
-├── docs/                        # Documentation
-│   └── assets/                  # Logos, banners
-│
-├── tests/                       # Unit tests
-├── AGENTS.md                    # Agent behavior spec
-├── README.md                    # This file
-├── CONTRIBUTING.md              # Contribution guidelines
-├── CHANGELOG.md                # Version history
-├── SECURITY.md                 # Security policy
-├── VISION.md                   # Project vision
-└── LICENSE                     # MIT License
+├── alasmia/                 # Core AI package
+│   ├── agent/              # AI brain (proactive, memory, emotions)
+│   ├── core/               # Services (scheduler, state)
+│   ├── integrations/       # Platform adapters (Telegram, WhatsApp, CLI)
+│   └── models/             # LLM providers
+├── docs/                    # Full documentation
+│   ├── getting-started/   # Installation & setup
+│   ├── user-guide/        # How to use
+│   ├── developer-guide/   # Architecture & contributing
+│   └── reference/         # CLI & API reference
+├── tests/                  # Test suites
+├── assets/                 # Logos & banners
+└── .github/               # GitHub workflows & templates
 ```
 
 ---
 
-## 🛡️ Security
+## 🛠️ Configuration
 
-- **100% Local Storage** — All data stays on your machine
-- **No Cloud Dependency** — Works fully offline
-- **No Telemetry** — Zero tracking or data collection
-- **MIT License** — Open source, auditable code
+### Required Environment Variables
 
-**Important:** Alasmia connects to real messaging platforms. Always verify identities and never share sensitive information.
+```bash
+TELEGRAM_BOT_TOKEN=your_telegram_token
+MINIMAX_API_KEY=your_api_key
+ALASMIA_MODEL=minimaxai/minimax-m2.7
+```
 
-See [SECURITY.md](SECURITY.md) for full security guidelines.
+### Optional Settings
+
+```yaml
+# In alasmia/config/settings.yaml
+bot:
+  name: Alasmia
+  personality: caring
+  language: mixed  # en, hi, mixed
+
+model:
+  provider: minimax
+  temperature: 0.7
+  max_tokens: 2000
+
+memory:
+  type: vector
+  persist: true
+
+scheduler:
+  enabled: true
+  timezone: Asia/Kolkata
+```
+
+📖 **[Configuration Guide →](docs/getting-started/configuration.md)**
+
+---
+
+## 📊 Version History
+
+| Version | Status | Description |
+|---------|--------|-------------|
+| v0.1.2 | ✅ Current | Multi-platform, proactive AI, emotional continuity |
+| v0.1.1 | ✅ | CLI chat, personality system |
+| v0.1.0 | ✅ | Initial release |
+
+📖 **[Full Changelog →](CHANGELOG.md)**
+
+---
+
+## 🎨 Documentation
+
+| Section | Content |
+|---------|---------|
+| [Quickstart](docs/getting-started/quickstart.md) | Get running in 5 minutes |
+| [Installation](docs/getting-started/installation.md) | Full installation guide |
+| [Configuration](docs/getting-started/configuration.md) | Customize Alasmia |
+| [User Guide](docs/user-guide/cli.md) | How to use features |
+| [Developer Guide](docs/developer-guide/architecture.md) | Architecture & contributing |
+| [Reference](docs/reference/cli-commands.md) | All CLI commands |
+| [Reference](docs/reference/environment-variables.md) | All environment variables |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting PRs.
+Contributions welcome! Please read our [Contributing Guide](CONTRIBUTING.md).
 
-**Quick Links:**
-- [GitHub Issues](https://github.com/alasmia/Alasmia/issues) — Report bugs, request features
-- [Discord](https://discord.gg/alasmia) — Community chat
-- [VISION.md](VISION.md) — Project direction and philosophy
+```bash
+# Fork → Clone → Branch → Code → PR
+git checkout -b feature/amazing-feature
+```
+
+See also: [Open Issues](https://github.com/alasmia/Alasmia/issues)
 
 ---
 
 ## 📄 License
 
-**MIT License** — See [LICENSE](LICENSE) for full text.
+MIT License - see [LICENSE](LICENSE)
 
 ---
 
-## 🏷️ Credits
+## 🙏 Acknowledgments
 
-**Created by [Doctor Kaif](https://github.com/DoctorKaif)**
-
-An open-source AI life partner project.
+- Built with [Hermes Agent](https://github.com/NousResearch/hermes-agent) patterns
+- Inspired by [OpenClaw](https://github.com/open-llm-agents/OpenClaw)
+- Powered by [MiniMax](https://www.minimax.io/) M2.7 model
 
 ---
 
 <p align="center">
-    <sub>Made with ❤️ by Doctor Kaif</sub>
+  <strong>Built with ❤️ by Doctor Kaif</strong><br>
+  <a href="https://github.com/alasmia/Alasmia">GitHub</a> •
+  <a href="docs/">Docs</a> •
+  <a href="https://github.com/alasmia/Alasmia/issues">Issues</a>
 </p>
