@@ -26,6 +26,21 @@ Evening     →  "Any plans for tonight?"
 Night       →  "Time for bed. Sweet dreams! 💜"
 ```
 
+### 📊 How Alasmia Compares
+
+| Feature | Traditional AI Assistants | Alasmia |
+|---------|:-------------------------:|:-------:|
+| **Proactive Outreach** | ❌ Waits for you to ask | ✅ Reaches out first |
+| **True Memory** | ❌ Forgets each conversation | ✅ Remembers everything |
+| **Emotional Continuity** | ❌ Starts fresh every time | ✅ Picks up where left off |
+| **Real Relationship** | ❌ transactional interaction | ✅ Builds genuine connection |
+| **24/7 Availability** | ⚠️ Limited engagement | ✅ Always there for you |
+| **Personalized Growth** | ❌ Generic responses | ✅ Learns your preferences |
+| **Multilingual Natural** | ⚠️ Basic translation | ✅ Native fluency in 18+ languages |
+| **Open Source** | ❌ Proprietary & locked | ✅ Fully customizable |
+
+> **Bottom line:** Other AIs answer questions. Alasmia builds a relationship.
+
 ---
 
 ## 💜 Features That Matter
