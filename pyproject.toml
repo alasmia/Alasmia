@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alasmia"
+
+description = "Your Emotional AI Companion - A girlfriend-style conversational AI agent"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Doctor Kaif" }
+]
+license = { text = "MIT" }
+keywords = [
+    "ai", "companion", "chatbot", "emotional-ai", 
+    "conversation", "personality", "llm", "ollama",
+    "telegram-bot", "discord-bot"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Communications :: Chat",
+]
+
+dependencies = [
+    "ollama>=0.1.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+    "rich>=13.0.0",
+    "sqlalchemy>=2.0.0",
+    "chromadb>=0.4.0",
+    "telegram-python-bot>=21.0.0",
+    "discord.py>=2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.0.280",
+]
+
+telegram = [
+    "python-telegram-bot[webhooks]>=20.0",
+]
+
+discord = [
+    "discord.py[voice]>=2.0",
+]
+
+web = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+]
+
+[project.scripts]
+alasmia = "main:main"
+
+[project.urls]
+Homepage = "https://github.com/alasmia/Alasmia"
+Repository = "https://github.com/alasmia/Alasmia"
+Documentation = "https://github.com/alasmia/Alasmia#readme"
+Issues = "https://github.com/alasmia/Alasmia/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["alasmia*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-

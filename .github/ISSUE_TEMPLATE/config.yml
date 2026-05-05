@@ -1,0 +1,12 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://docs.alasmia.ai
+    about: Check our documentation first
+  - name: 💬 Discord
+    url: https://discord.gg/alasmia
+    about: Join our community for help
+  - name: 📧 Email
+    url: mailto:support@alasmia.ai
+    about: For private security issues, email us

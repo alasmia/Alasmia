@@ -1,0 +1,28 @@
+services:
+  alasmia:
+    build: .
+    container_name: alasmia
+    restart: unless-stopped
+    environment:
+      - MODEL_PROVIDER=${MODEL_PROVIDER:-ollama}
+      - MODEL_NAME=${MODEL_NAME:-qwen2.5:14b}
+      - OLLAMA_URL=${OLLAMA_URL:-http://host.docker.internal:11434}
+      - TGBT=${TELEGRAM_BOT_TOKEN:-none}
+      - DCBT=${DISCORD_BOT_TOKEN:-none}
+      - OAIK=${OPENAI_API_KEY:-none}
+      - ANCK=${ANTHROPIC_API_KEY:-none}
+      - ADVANCED=${ADVANCED_MODE:-false}
+      - DATA_DIR=/app/data
+    volumes:
+      - ./data:/app/data
+      - alasmia-data:/app/alasmia_data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "print('ok')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  alasmia-data:

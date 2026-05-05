@@ -1,0 +1,111 @@
+name: Setup Help
+description: Get help installing and configuring Alasmia
+title: "[SETUP HELP] "
+labels: ["setup help", "question"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Need Help with Alasmia Setup?
+
+        We're here to help! Please fill out the details below so we can assist you faster.
+
+  - type: dropdown
+    id: installation-type
+    attributes:
+      label: Installation Type
+      description: What type of installation are you trying to do?
+      options:
+        - Fresh installation
+        - Update/Upgrade
+        - Docker
+        - From source
+        - Android/Termux
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: What OS are you running on?
+      options:
+        - Linux (Ubuntu/Debian)
+        - Linux (CentOS/RHEL)
+        - macOS
+        - Windows (WSL2)
+        - Android (Termux)
+        - Docker
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-message
+    attributes:
+      label: Error Message
+      description: Paste the full error message you're seeing
+      placeholder: |
+        Paste your error message here...
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: What steps did you follow before the error?
+      placeholder: |
+        1. Step 1
+        2. Step 2
+        3. Step 3
+
+  - type: input
+    id: alasmia-version
+    attributes:
+      label: Alasmia Version
+      description: What version of Alasmia are you using?
+      placeholder: "e.g., v0.1.2"
+
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Information
+      description: |
+        Please provide:
+        - Python version
+        - Available RAM
+        - Model being used
+        - Any relevant logs
+      placeholder: |
+        Python: 3.x.x
+        RAM: X GB
+        Model: [model name]
+        Logs: [paste relevant logs]
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues
+          required: true
+        - label: I have checked the documentation
+          required: true
+        - label: This is not a duplicate issue
+          required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help us help you
+      placeholder: |
+        Add any additional context here...
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: I consent to this issue being used for improving Alasmia documentation

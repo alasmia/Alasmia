@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9d4edd"/>
+      <stop offset="100%" style="stop-color:#ff6b6b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="200" rx="16" fill="url(#bg)"/>
+  
+  <!-- Glowing border -->
+  <rect x="2" y="2" width="596" height="196" rx="14" fill="none" stroke="url(#glow)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Heart symbol -->
+  <path d="M300 130 C280 110 240 100 240 130 C240 160 300 180 300 180 C300 180 360 160 360 130 C360 100 320 110 300 130" fill="url(#glow)" opacity="0.9"/>
+  
+  <!-- AI text -->
+  <text x="300" y="70" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">ALASMIA</text>
+  
+  <!-- Tagline -->
+  <text x="300" y="95" font-family="Arial, sans-serif" font-size="14" fill="#b0b0b0" text-anchor="middle">Your AI Life Partner</text>
+</svg>

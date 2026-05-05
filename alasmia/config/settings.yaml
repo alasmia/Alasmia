@@ -1,0 +1,42 @@
+# Alasmia Configuration
+
+# Application Settings
+app:
+  name: "Alasmia"
+  version: ""
+  debug: false
+
+# AI Model Settings
+model:
+  provider: "ollama"
+  name: "qwen2.5:14b"
+  temperature: 0.8
+  top_p: 0.9
+  max_tokens: 2048
+  
+ollama:
+  url: "http://localhost:11434"
+
+# Personality Settings
+personality:
+  default_stage: "stranger"
+  stage_thresholds:
+    acquaintance: 10
+    friend: 50
+    close: 200
+    partner: 500
+
+# Memory Settings
+memory:
+  db_path: "./data/alasmia.db"
+  vector_db_path: "./data/vector_db"
+  max_history: 100
+  
+# Content Mode
+content:
+  advanced_mode: false
+  
+# Logging
+logging:
+  level: "INFO"
+  file: "./data/alasmia.log"

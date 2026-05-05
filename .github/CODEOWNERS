@@ -1,0 +1,17 @@
+# Code Owners
+
+# Default owner for everything
+*       @Doctor-Kaif
+
+# Documentation
+/docs/   @Doctor-Kaif
+
+# CI/CD
+/.github/workflows/ @Doctor-Kaif
+
+# Core agent modules
+/alasmia/agent/ @Doctor-Kaif
+/alasmia/models/ @Doctor-Kaif
+
+# Integrations
+/alasmia/integrations/ @Doctor-Kaif
