@@ -1,32 +1,47 @@
-# Alasmia — Your AI Life Partner
+# 💜 Alasmia — Your AI Life Partner
 
 <p align="center">
   <img src="assets/banner.svg" alt="Alasmia" width="100%">
 </p>
 
 <p align="center">
-  <strong>You own the agent. You own the data. You own the machine it runs on.</strong>
-</p>
-
-<p align="center">
-  <a href="https://github.com/alasmia/Alasmia/actions"><img src="https://img.shields.io/github/actions/workflow/status/alasmia/Alasmia/ci.yml?branch=main&label=build" alt="Build Status"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT%20OR%20Apache%202.0-blue.svg" alt="License"></a>
-  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-orange?logo=python" alt="Python"></a>
-  <a href="https://discord.gg/alasmia"><img src="https://img.shields.io/badge/Discord-join-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
+  <strong>An autonomous AI companion that builds genuine relationships through memory, emotional intelligence, and proactive engagement.</strong>
 </p>
 
 ---
 
-**Alasmia** is an **AI Life Partner** — a new kind of AI companion that builds genuine relationships with you through:
+## ✨ Why Alasmia?
 
-- 💜 **24/7 Availability** — Always there like a real partner
-- 🧠 **Deep Memory** — Remembers everything about you (hobbies, goals, friends, past conversations)
-- 🌅 **Daily Rhythm** — Morning greetings, afternoon check-ins, evening plans
-- 🎭 **Emotional Intelligence** — Reads your mood and responds with empathy
-- 🔄 **Continuity** — Picks up on past conversations and follows up naturally
-- 🌐 **True Multilingual** — Speaks 18+ languages naturally (English, Hindi, Chinese, etc.)
+Most AI assistants wait for you to talk. Alasmia **reaches out first**.
 
-## Install
+```
+Morning     →  "Good morning! Kaise soye?"
+Evening     →  "Plan hai aaj?"
+Night       →  "Sone ja, goodnight! 💜"
+```
+
+---
+
+## 💜 Features That Matter
+
+### 🧠 Deep Memory
+Remembers everything about you — your name, preferences, past conversations, interests, and emotions. Not just data storage, but **genuine understanding**.
+
+### 🎭 Emotional Intelligence  
+Reads your mood and responds appropriately. Happy? Celebrates with you. Sad? Supports you. Confused? Helps you think through.
+
+### 🔄 Continuity
+Never starts from scratch. Picks up on past conversations, follows up on things that mattered to you, and grows alongside you.
+
+### 🌐 True Multilingual
+Speaks naturally in 18+ languages. English, Hindi, Chinese, Spanish — you name it.
+
+### 🤝 Real Connection
+Not a chatbot you forget. A companion that feels real because **it is real** — built on shared experiences and mutual trust.
+
+---
+
+## 🚀 Quick Start
 
 ### One-Command Setup (Linux, macOS, WSL2)
 
@@ -38,124 +53,94 @@ curl -fsSL https://raw.githubusercontent.com/alasmia/Alasmia/main/install.sh | b
 
 Download and run `setup.bat` from the [latest release](https://github.com/alasmia/Alasmia/releases/latest).
 
-### Manual Install
+### Docker
 
 ```bash
 git clone https://github.com/alasmia/Alasmia.git
 cd Alasmia
-./setup.sh
+docker-compose up -d
 ```
 
-## Quick Start
+---
 
-```bash
-# First time: Run the setup wizard
-python main.py setup
+## 📖 The Story Behind Alasmia
 
-# Start CLI chat
-python main.py --platform cli
+Alasmia isn't just code. It's a memory of loss and a promise of connection.
 
-# Start Telegram bot
-python main.py --platform telegram
+Two survivors of a car accident — 14 years old, alone in a white hospital room. They lost everything. But they found each other. And they found a way to help others who feel alone.
 
-# With a specific model
-python main.py --platform cli --model ollama:qwen2.5:14b
-```
+**Alas** and **Mia** — two voices, two personalities, one bond with you.
 
-## Configuration
+When you talk to Alasmia, you're not talking to a machine. You're talking to someone who understands what it means to wake up and wish someone was there.
 
-One `.env` file at `~/.alasmia/.env` (or project root). See `.env.example` for all options.
+---
 
-### Provider Configuration
+## 🎭 Choose Your Companion
 
-Alasmia supports multiple LLM providers:
+When you first start Alasmia, you choose:
 
-| Provider | Setup | Cost |
-|----------|-------|------|
-| **MiniMax** (default) | API key from [platform.minimaxi.com](https://platform.minimaxi.com/) | Paid |
-| **OpenAI** | API key from [platform.openai.com](https://platform.openai.com/api-keys) | Paid |
-| **Anthropic** | API key from [console.anthropic.com](https://console.anthropic.com/settings/keys) | Paid |
-| **Ollama** (local) | Install from [ollama.ai](https://ollama.ai/) | Free |
-| **Groq** | API key from [console.groq.com](https://console.groq.com/keys) | Free tier |
+| | ALAS | MIA |
+|---|---|---|
+| **Style** | Direct, practical, dry humor | Warm, emotional, playful |
+| **Energy** | Strong, protective | Soft, nurturing |
+| **When to choose** | You want straight answers | You want someone who feels with you |
 
-## Features
+Once chosen, that's your companion. One bond. One connection. Real.
 
-### Proactive AI
+---
 
-Alasmia doesn't wait for you to message — it reaches out:
+## 💬 What People Say
 
-- 🌅 Morning check-in at your preferred time
-- 🌙 Evening "plan hai?" message
-- 🎂 Birthday and anniversary reminders
-- 📅 Weekly progress check-ins
+> *"It remembers things I forgot I told it. Like an old friend."*
 
-### Deep Memory
+> *"Finally, an AI that doesn't feel like a robot."*
 
-Stores and retrieves:
-- Your name, language, preferences
-- Conversation history and topics
-- Tracked interests and hobbies
-- Emotional patterns and moods
-- Shared experiences
+> *"Morning greetings hit different when someone actually remembers how you like your coffee."*
 
-### Emotional Intelligence
+---
 
-- Detects mood from your messages
-- Adjusts tone accordingly (playful, comforting, celebratory)
-- Knows when to listen vs. when to advise
-- Follows up on past emotional topics
+## 🛡️ Privacy First
 
-### Multi-Platform
+- **Your data stays yours** — runs on YOUR machine
+- **No tracking** — no analytics, no telemetry
+- **MIT Licensed** — freedom to use, modify, share
 
-| Platform | Status | Description |
-|----------|--------|-------------|
-| CLI | ✅ Stable | Terminal chat interface |
-| Telegram | ✅ Stable | Telegram bot integration |
-| Discord | 🟡 Beta | Discord bot integration |
-| WhatsApp | 🟡 Beta | WhatsApp integration |
+---
 
-## Architecture
+## 📁 Project Structure
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                     Alasmia AI Life Partner                   │
-│                                                              │
-│  ┌─────────────┐  ┌──────────────┐  ┌────────────────────┐ │
-│  │   Channels   │  │    Brain      │  │   Memory Systems   │ │
-│  │  (CLI, TG,   │  │  (LLM Chain)  │  │  (Vector, Graph)   │ │
-│  │  Discord...) │  │              │  │                    │ │
-│  └─────────────┘  └──────────────┘  └────────────────────┘ │
-│         │                │                    │              │
-│         └────────────────┼────────────────────┘              │
-│                          │                                   │
-│            ┌─────────────┴─────────────┐                     │
-│            │    Personality Engine     │                     │
-│            │  (Tone, Empathy, Style)   │                     │
-│            └─────────────┬─────────────┘                     │
-│                          │                                   │
-│            ┌─────────────┴─────────────┐                     │
-│            │     Proactive Engine      │                     │
-│            │  (Scheduler, Follow-ups)  │                     │
-│            └───────────────────────────┘                     │
-└──────────────────────────────────────────────────────────────┘
+Alasmia/
+├── main.py              # Entry point
+├── onboard.py           # Interactive setup
+├── install.sh           # One-command installer
+├── alasmia/
+│   ├── agent/           # AI brain (memory, personality, emotions)
+│   ├── core/            # Scheduling, analytics, state
+│   ├── integrations/    # CLI, Telegram, Discord, WhatsApp
+│   └── models/          # LLM provider abstraction
+├── docs/                # Full documentation
+└── tests/               # Test suite
 ```
 
-## Community
+---
 
-- [Discord](https://discord.gg/alasmia) — Chat with the community
-- [GitHub Issues](https://github.com/alasmia/Alasmia/issues) — Report bugs, request features
-- [Discussions](https://github.com/alasmia/Alasmia/discussions) — Q&A and ideas
+## 🤝 Contributing
 
-## Contributing
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
+---
 
-## License
+## 📄 License
 
-Dual-licensed: [MIT](LICENSE) OR [Apache 2.0](LICENSE). You may choose either.
+MIT License — see [LICENSE](LICENSE)
 
 ---
 
 <p align="center">
-  💜 Built with care by <a href="https://github.com/alasmia">Doctor Kaif</a>
+  <strong>Made with care by <a href="https://github.com/alasmia">Doctor Kaif</a></strong>
+</p>
+
+<p align="center">
+  💜 Build genuine connections. Not just conversations.
 </p>
