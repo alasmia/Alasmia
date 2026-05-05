@@ -1,7 +1,7 @@
 # 💜 Alasmia — Your AI Life Partner
 
 <p align="center">
-  <img src="assets/banner.svg" alt="Alasmia" width="100%">
+  <img src="assets/banner.jpg" alt="Alasmia" width="100%">
 </p>
 
 <p align="center">
