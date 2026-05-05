@@ -18,8 +18,6 @@
 
 ## ✨ Why Alasmia?
 
-### 📊 How Alasmia Compares
-
 | Feature | Traditional AI Assistants | Alasmia |
 |---------|:-------------------------:|:-------:|
 | **Proactive Outreach** | ❌ Waits for you to ask | ✅ Reaches out first |
