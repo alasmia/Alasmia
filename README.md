@@ -9,9 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://discord.gg/alasmia"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
-  <img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License: MIT">
-  <img src="https://img.shields.io/badge/Built%20by-Doctor%20Kaif-FF6B6B?style=flat" alt="Built by Doctor Kaif">
+  <a href="https://discord.gg/alasmia" target="_blank"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://github.com/alasmia/Alasmia/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License: MIT"></a>
+  <a href="https://github.com/doctorkaif" target="_blank"><img src="https://img.shields.io/badge/Built%20by-Doctor%20Kaif-FF6B6B?style=flat" alt="Built by Doctor Kaif"></a>
 </p>
 
 ---
