@@ -18,14 +18,6 @@
 
 ## ✨ Why Alasmia?
 
-Most AI assistants wait for you to talk. Alasmia **reaches out first**.
-
-```
-Morning     →  "Good morning! How did you sleep?"
-Evening     →  "Any plans for tonight?"
-Night       →  "Time for bed. Sweet dreams! 💜"
-```
-
 ### 📊 How Alasmia Compares
 
 | Feature | Traditional AI Assistants | Alasmia |
