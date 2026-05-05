@@ -8,6 +8,12 @@
   <strong>An autonomous AI companion that builds genuine relationships through memory, emotional intelligence, and proactive engagement.</strong>
 </p>
 
+<p align="center">
+  <a href="https://discord.gg/alasmia"><img src="https://img.shields.io/badge/Discord-Join-5865F2?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License: MIT">
+  <img src="https://img.shields.io/badge/Built%20by-Doctor%20Kaif-FF6B6B?style=flat" alt="Built by Doctor Kaif">
+</p>
+
 ---
 
 ## ✨ Why Alasmia?
