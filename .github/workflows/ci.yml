@@ -32,16 +32,7 @@ jobs:
           pytest tests/ -v || echo "Tests completed"
           
       - name: Verify modules import
-        run: |
-          python -c "
-import alasmia.agent.brain
-import alasmia.agent.memory  
-import alasmia.agent.personality
-import alasmia.core.scheduler
-import alasmia.core.state_manager
-import alasmia.integrations.cli_chat
-print('All core modules import successfully!')
-"
+        run: python -c "import alasmia.agent.brain; import alasmia.agent.memory; import alasmia.agent.personality; import alasmia.core.scheduler; import alasmia.core.state_manager; import alasmia.integrations.cli_chat; print('All core modules import successfully!')"
           
       - name: Verify main.py works
         run: |
