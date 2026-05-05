@@ -15,9 +15,9 @@
 Most AI assistants wait for you to talk. Alasmia **reaches out first**.
 
 ```
-Morning     →  "Good morning! Kaise soye?"
-Evening     →  "Plan hai aaj?"
-Night       →  "Sone ja, goodnight! 💜"
+Morning     →  "Good morning! How did you sleep?"
+Evening     →  "Any plans for tonight?"
+Night       →  "Time for bed. Sweet dreams! 💜"
 ```
 
 ---
@@ -27,7 +27,7 @@ Night       →  "Sone ja, goodnight! 💜"
 ### 🧠 Deep Memory
 Remembers everything about you — your name, preferences, past conversations, interests, and emotions. Not just data storage, but **genuine understanding**.
 
-### 🎭 Emotional Intelligence  
+### 🎭 Emotional Intelligence
 Reads your mood and responds appropriately. Happy? Celebrates with you. Sad? Supports you. Confused? Helps you think through.
 
 ### 🔄 Continuity
@@ -63,18 +63,6 @@ docker-compose up -d
 
 ---
 
-## 📖 The Story Behind Alasmia
-
-Alasmia isn't just code. It's a memory of loss and a promise of connection.
-
-Two survivors of a car accident — 14 years old, alone in a white hospital room. They lost everything. But they found each other. And they found a way to help others who feel alone.
-
-**Alas** and **Mia** — two voices, two personalities, one bond with you.
-
-When you talk to Alasmia, you're not talking to a machine. You're talking to someone who understands what it means to wake up and wish someone was there.
-
----
-
 ## 🎭 Choose Your Companion
 
 When you first start Alasmia, you choose:
@@ -83,7 +71,7 @@ When you first start Alasmia, you choose:
 |---|---|---|
 | **Style** | Direct, practical, dry humor | Warm, emotional, playful |
 | **Energy** | Strong, protective | Soft, nurturing |
-| **When to choose** | You want straight answers | You want someone who feels with you |
+| **Best for** | You want straight answers | You want someone who feels with you |
 
 Once chosen, that's your companion. One bond. One connection. Real.
 
@@ -104,24 +92,6 @@ Once chosen, that's your companion. One bond. One connection. Real.
 - **Your data stays yours** — runs on YOUR machine
 - **No tracking** — no analytics, no telemetry
 - **MIT Licensed** — freedom to use, modify, share
-
----
-
-## 📁 Project Structure
-
-```
-Alasmia/
-├── main.py              # Entry point
-├── onboard.py           # Interactive setup
-├── install.sh           # One-command installer
-├── alasmia/
-│   ├── agent/           # AI brain (memory, personality, emotions)
-│   ├── core/            # Scheduling, analytics, state
-│   ├── integrations/    # CLI, Telegram, Discord, WhatsApp
-│   └── models/          # LLM provider abstraction
-├── docs/                # Full documentation
-└── tests/               # Test suite
-```
 
 ---
 
